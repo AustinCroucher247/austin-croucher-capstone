@@ -5,7 +5,7 @@ function Login() {
     return (
         <>
             <Header />
-            <div class="card">
+            <div class="login-card">
                 <h2>Login</h2>
                 <form action="" method="post">
                     <input type="text" name="username" placeholder="Username" />

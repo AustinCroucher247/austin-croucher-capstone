@@ -39,16 +39,17 @@ body {
 }
 
 .sidebar {
-    width: 15rem;
+    width: 20%;
     background-color: #0f1014;
     color: white;
     text-align: center;
-    height: 100rem;
+    height: 78rem;
     margin-top: 0;
     opacity: 0.9;
 
     &--text {
         margin-top: 0;
+        padding-top: 2rem;
     }
 }
 
@@ -56,4 +57,72 @@ body {
     color: white;
     padding-right: 3rem;
     font-size: 1.25rem;
+}
+
+
+.card {
+    width: 90% !important;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.card-img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #333;
+}
+
+.card-text {
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #666;
+}
+
+.card-button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+
+    &-play {
+        background-color: #333;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: all 0.3s ease-in-out;
+    }
+
+}
+
+.card-button:hover {
+    background-color: #666;
+}
+
+.button--container {
+    width: 100%;
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-around;
 }
