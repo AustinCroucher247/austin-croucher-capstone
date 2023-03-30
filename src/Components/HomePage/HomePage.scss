@@ -1,13 +1,33 @@
 .header {
     display: flex;
+    align-items: center;
+
+    &--container {
+        background-color: #0f1014;
+    }
 
     &--logo {
         height: 5rem;
 
-
         &--right {
-            background-color: #121318;
+            background-color: #0f1014;
             width: 100%;
         }
     }
+}
+
+.list {
+    display: flex;
+    /* remove align-items property from here */
+
+    &--item {
+        color: white;
+        list-style: none;
+        text-decoration: none;
+        padding-right: 2rem;
+    }
+}
+
+body {
+    background: linear-gradient(to bottom, rgb(62, 7, 89), rgb(159, 93, 170));
 }
