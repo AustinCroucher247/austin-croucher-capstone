@@ -18,16 +18,42 @@
 
 .list {
     display: flex;
-    /* remove align-items property from here */
+    align-items: center;
+    justify-content: space-between;
+    /* add this property to move the "Login" link to the right */
 
     &--item {
         color: white;
         list-style: none;
-        text-decoration: none;
         padding-right: 2rem;
+    }
+
+    &--item--login {
+        margin-left: auto;
+        /* add this property to move the "Login" link to the right */
     }
 }
 
 body {
     background: linear-gradient(to bottom, rgb(62, 7, 89), rgb(159, 93, 170));
+}
+
+.sidebar {
+    width: 15rem;
+    background-color: #0f1014;
+    color: white;
+    text-align: center;
+    height: 100rem;
+    margin-top: 0;
+    opacity: 0.9;
+
+    &--text {
+        margin-top: 0;
+    }
+}
+
+.login {
+    color: white;
+    padding-right: 3rem;
+    font-size: 1.25rem;
 }
