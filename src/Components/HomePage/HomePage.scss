@@ -1,0 +1,13 @@
+.header {
+    display: flex;
+
+    &--logo {
+        height: 5rem;
+
+
+        &--right {
+            background-color: #121318;
+            width: 100%;
+        }
+    }
+}

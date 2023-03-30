@@ -7,6 +7,9 @@ html {
 .landing__page {
     position: relative;
     height: 100vh;
+    background-image: url("../../assets/backgroundLanding2.jpeg");
+    background-size: cover;
+    background-position: center;
 }
 
 .logo {
@@ -24,10 +27,7 @@ html {
 }
 
 .enter {
-    position: absolute;
-    top: 20%;
-    left: 28%;
-    z-index: 1;
+    padding-top: 10%;
 }
 
 .enter:hover {
