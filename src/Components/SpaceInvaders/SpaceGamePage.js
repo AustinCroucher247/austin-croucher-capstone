@@ -12,12 +12,26 @@ function SpaceGamePage() {
     const scoreRef = useRef(0);
 
 
-    const handleScore = (score) => {
-        // make api call to set high score
-        scoreRef.current += score
-        setScore(scoreRef.current)
-
+    const handleScore = async (score) => {
+        scoreRef.current += score;
+        setScore(scoreRef.current);
         console.log(`received new high score ${scoreRef.current}`);
+
+        const username = "exampleuser"; // replace with actual username
+        const data = { username, score: scoreRef.current };
+        try {
+            const response = await fetch('http://localhost:8080/leaderboard', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            const responseData = await response.json();
+            console.log(responseData);
+        } catch (error) {
+            console.error(error);
+        }
     }
     const startGame = () => {
         setShowModal(false);
@@ -29,7 +43,6 @@ function SpaceGamePage() {
             try {
                 const response = await fetch('http://localhost:8080/leaderboard');
                 const data = await response.json();
-                console.log(response.data)
                 setLeaderboardData(data);
             } catch (err) {
                 console.error(err);
