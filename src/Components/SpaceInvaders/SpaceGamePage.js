@@ -1,17 +1,43 @@
 import GameComponent from '../SpaceInvaders/GameMountComp.js';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './SpaceGamePage.scss';
 import Header from '../Header/Header.jsx';
-import SpaceInvaderLogo from '../../assets/SpaceInvadersText.png';
+import { useRef } from 'react';
 
 function SpaceGamePage() {
     const [renderGame, setRenderGame] = useState(false);
     const [showModal, setShowModal] = useState(true);
+    const [leaderboardData, setLeaderboardData] = useState([]);
+    const [score, setScore] = useState(0)
+    const scoreRef = useRef(0);
 
+
+    const handleScore = (score) => {
+        // make api call to set high score
+        scoreRef.current += score
+        setScore(scoreRef.current)
+
+        console.log(`received new high score ${scoreRef.current}`);
+    }
     const startGame = () => {
         setShowModal(false);
         setRenderGame(true);
     };
+
+    useEffect(() => {
+        async function fetchLeaderboard() {
+            try {
+                const response = await fetch('http://localhost:8080/leaderboard');
+                const data = await response.json();
+                console.log(response.data)
+                setLeaderboardData(data);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        fetchLeaderboard();
+    }, []);
 
     return (
         <div>
@@ -20,9 +46,13 @@ function SpaceGamePage() {
                 <div className='modal--container'>
                     <div className='modal--content'>
                         <h2 className='modal--title'>Space Invaders</h2>
-                        <p className='modal--description'>Are you ready to defend Earth against an alien invasion?</p>
+                        <p className='modal--description'>
+                            Are you ready to defend Earth against an alien invasion?
+                        </p>
                         <div className='modal--button--container'>
-                            <button className='modal--button' onClick={startGame}>Start</button>
+                            <button className='modal--button' onClick={startGame}>
+                                Start
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -31,14 +61,14 @@ function SpaceGamePage() {
             <div className='heading--container'>
                 {/* <img className='heading--text' src={SpaceInvaderLogo} alt="logo" /> */}
             </div>
-
+            <p className='score'>{showModal ? "" : 'Score: ' + score}</p>
             <div className='game--container'>
                 {renderGame && (
                     <>
-                        <GameComponent />
+                        <GameComponent handleScore={handleScore} />
                         <div className='leaderboard--container'>
                             <h1 className='leaderboard--text'>Leaderboard</h1>
-                            <table className="leaderboard">
+                            <table className='leaderboard'>
                                 <thead>
                                     <tr>
                                         <th>Rank</th>
@@ -47,42 +77,19 @@ function SpaceGamePage() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Player A</td>
-                                        <td>5000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Player B</td>
-                                        <td>4000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Player C</td>
-                                        <td>3500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Player D</td>
-                                        <td>3000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Player E</td>
-                                        <td>2500</td>
-                                    </tr>
+                                    {leaderboardData.map((entry, index) => (
+                                        <tr key={entry.id}>
+                                            <td>{index + 1}</td>
+                                            <td>{entry.username}</td>
+                                            <td>{entry.score}</td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
                     </>
                 )}
             </div>
-
-            {/* <div className='button--container'>
-                <button onClick={() => setRenderGame(!renderGame)}>Toggle game</button>
-            </div> */}
-
         </div>
     );
 }

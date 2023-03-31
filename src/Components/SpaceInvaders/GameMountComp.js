@@ -5,13 +5,10 @@ const GameComponent = props => {
     const canvasRef = useRef();
     const scoreRef = useRef();
 
-    const handleHighScore = (highScore) => {
-        // make api call to set high score
-        console.log(`received new high score ${highScore}`);
-    }
+
 
     useEffect(() => {
-        game.mount(canvasRef.current, scoreRef.current, handleHighScore);
+        game.mount(canvasRef.current, scoreRef.current, props.handleScore);
 
         return () => {
             game.unmount();
@@ -21,7 +18,7 @@ const GameComponent = props => {
     return (
         <>
             <canvas ref={canvasRef} />
-            <p ref={scoreRef}></p>
+            {console.log(canvasRef)}
 
         </>
     );

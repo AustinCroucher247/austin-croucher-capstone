@@ -56,10 +56,10 @@ function keyHandler({ key, type }) {
 
 
 // Game logic goes here
-game.mount = (canvas, score, handleHighScore) => {
-
+game.mount = (canvas, score, handleScore) => {
     canvas.width = 1024
     canvas.height = 576
+
 
     console.log('mount was called');
 
@@ -402,7 +402,8 @@ game.mount = (canvas, score, handleHighScore) => {
 
                             if (invaderFound && projectileFound) {
                                 score += 100
-                                // scoreEl.innerHTML = score
+                                handleScore(100)
+                                score = score.innerHTML
                                 createParticles({
                                     object: invader,
                                     fades: true
