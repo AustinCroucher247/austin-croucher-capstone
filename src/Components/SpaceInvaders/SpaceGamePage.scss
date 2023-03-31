@@ -1,0 +1,120 @@
+canvas {
+    border: 1px solid white;
+}
+
+.game--container {
+    display: flex;
+    margin-top: 3rem;
+    justify-content: space-around;
+}
+
+.heading {
+
+    &--text {
+        padding: 2rem;
+        padding-left: 16rem;
+    }
+
+    &--container {
+        display: flex;
+        justify-content: flex-start;
+        color: darkred;
+    }
+
+}
+
+.button--container {
+    padding-top: 5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.leaderboard {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 50px;
+
+    &--text {
+        margin-bottom: 0;
+    }
+
+    &--container {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+}
+
+.leaderboard th,
+.leaderboard td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.leaderboard th {
+    background-color: #004d99;
+    color: #fff;
+}
+
+.leaderboard tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.modal--container {
+    background-color: #dadfe1;
+    height: 13rem;
+    border-radius: 10px;
+    text-align: center;
+    padding: 3rem 1rem 0rem 1rem;
+    margin: 0 auto;
+    margin-top: 10rem;
+    width: 50%;
+}
+
+.modal--button {
+
+    &--container {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+
+.modal--button {
+    background: #881400;
+    border-bottom: 6px inset rgba(0, 0, 0, .5);
+    border-left: 6px inset rgba(0, 0, 0, .5);
+    border-right: 6px inset rgba(255, 255, 255, .5);
+    border-top: 6px inset rgba(255, 255, 255, .5);
+    box-sizing: border-box;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 2.2rem;
+    margin: 1rem;
+    min-width: 200px;
+    padding: .5rem;
+    text-transform: uppercase;
+    width: auto;
+
+    &:focus,
+    &:hover {
+        background: #BCBCBC;
+    }
+}
+
+.modal--button.primary {
+    background: #881400;
+
+    &:focus,
+    &:hover {
+        background: #A81000;
+    }
+}

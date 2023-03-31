@@ -1,6 +1,7 @@
 import './HomePage.scss'
 import Header from '../Header/Header';
 import SpaceInvaders from '../../assets/spaceinvaders.jpg'
+import { Link } from 'react-router-dom';
 
 function HomePage() {
     return (
@@ -14,8 +15,8 @@ function HomePage() {
                         <h2 className="card-title">Space Invaders</h2>
                         <p className="card-text">Space Invaders is a classic arcade video game where players control a laser cannon to defend Earth against waves of invading aliens.</p>
                         <div className='button--container'>
-                            <button className="card-button-play">Play Now</button>
-                            <button className="card-button">Watch Now</button>
+                            <Link to={'/SpaceInvaders'}> <button className="card-button-play">Play Now</button></Link>
+                            <Link to={'/ActiveStreams'}> <button className="card-button">Watch Now</button></Link>
                         </div>
                     </div>
                 </div>

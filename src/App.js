@@ -7,6 +7,7 @@ import GameRoom from './Components/GameRoom/GameRoom';
 import Leaderboards from './Components/Leaderboards/Leaderboards';
 import AboutUs from './Components/AboutUs/AboutUs';
 import Login from './Components/Login/Login';
+import SpaceGamePage from './Components/SpaceInvaders/SpaceGamePage';
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
         <Route path='/Leaderboards' element={<Leaderboards />}></Route>
         <Route path='/AboutUs' element={<AboutUs />}></Route>
         <Route path='/Login' element={<Login />}></Route>
+        <Route path='/SpaceInvaders' element={<SpaceGamePage />}></Route>
+
 
       </Routes>
     </BrowserRouter>
