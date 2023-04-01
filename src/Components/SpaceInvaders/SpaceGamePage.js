@@ -17,7 +17,7 @@ function SpaceGamePage() {
         setScore(scoreRef.current);
         console.log(`received new high score ${scoreRef.current}`);
 
-        const username = "exampleuser"; // replace with actual username
+        const username = "exampleuser";
         const data = { username, score: scoreRef.current };
         try {
             const response = await fetch('http://localhost:8080/leaderboard', {

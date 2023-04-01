@@ -21,6 +21,10 @@ function HomePage() {
                     </div>
                 </div>
             </div>
+            <div>
+                {/* <h1 className='promoted--stream--header'>Promoted Stream</h1> */}
+                {/* <video src="../../assets/SpaceInvaderVideo.mp4" controls></video> */}
+            </div>
         </>
     );
 }
