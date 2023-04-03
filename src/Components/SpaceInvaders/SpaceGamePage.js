@@ -15,10 +15,10 @@ function SpaceGamePage() {
     const handleScore = async (score) => {
         scoreRef.current += score;
         setScore(scoreRef.current);
-        console.log(`received new high score ${scoreRef.current}`);
 
-        const username = "exampleuser";
+        const username = "exampleuser"; // replace with actual username
         const data = { username, score: scoreRef.current };
+
         try {
             const response = await fetch('http://localhost:8080/leaderboard', {
                 method: 'POST',

@@ -470,6 +470,8 @@ game.mount = (canvas, score, handleScore) => {
 
             //projectile hits player. The if statement insures that the projectile has to hit the middle of the player
             //in order to actually register as a hit and destroy
+
+
             if (invaderProjectile.position.y + invaderProjectile.height >=
                 player.position.y && invaderProjectile.position.x +
                 invaderProjectile.width >= player.position.x &&

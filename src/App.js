@@ -8,6 +8,8 @@ import Leaderboards from './Components/Leaderboards/Leaderboards';
 import AboutUs from './Components/AboutUs/AboutUs';
 import Login from './Components/Login/Login';
 import SpaceGamePage from './Components/SpaceInvaders/SpaceGamePage';
+import ActivePacMan from './Components/ActivePacMan/ActivePacMan';
+import UserPage from './Components/UserPage/UserPage';
 
 function App() {
   return (
@@ -21,8 +23,9 @@ function App() {
         <Route path='/AboutUs' element={<AboutUs />}></Route>
         <Route path='/Login' element={<Login />}></Route>
         <Route path='/SpaceInvaders' element={<SpaceGamePage />}></Route>
-
-
+        <Route path='/ActiveSteams/Pacman' element={<ActivePacMan />}></Route>
+        <Route path='/ActiveSteams/SpaceInvaders' element={<ActivePacMan />}></Route>
+        <Route path="/UserPage" element={<UserPage />} />
       </Routes>
     </BrowserRouter>
   );

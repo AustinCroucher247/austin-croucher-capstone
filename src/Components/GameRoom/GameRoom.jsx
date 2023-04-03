@@ -1,6 +1,5 @@
 import Header from '../Header/Header';
 import './GameRoom.scss'
-import SpaceInvaders from '../../assets/spaceinvaders.jpg'
 import { Link } from 'react-router-dom';
 import PacMan from '../../assets/PacMan.png'
 

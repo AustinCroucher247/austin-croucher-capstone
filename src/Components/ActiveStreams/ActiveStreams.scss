@@ -1,0 +1,30 @@
+.header--text {
+    color: white;
+}
+
+.active--card {
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 10%;
+    margin-bottom: 2rem;
+    margin-right: 2rem;
+}
+
+.activecard-img2 {
+    height: 10rem;
+    width: 80%;
+    padding: 1rem;
+}
+
+.activecard-body {
+    padding: 20px;
+    text-align: center;
+}
+
+.activecard--container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}

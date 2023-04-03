@@ -2,7 +2,14 @@ import './Header.scss'
 import HeaderLogo from '../../assets/RetroGames.jpg'
 import { Link } from 'react-router-dom';
 
+import { useState, useEffect } from 'react';
+
 function Header() {
+    const [username, setUsername] = useState('');
+
+    useEffect(() => {
+        setUsername(localStorage.getItem('username'));
+    }, []);
     return (
         <div>
             <div className='header--container'>
@@ -40,9 +47,16 @@ function Header() {
                                     </li>
                                 </Link>
                                 <div className='list--item--login'>
-                                    <Link to={'/Login'} className='login'>
-                                        Login
-                                    </Link>
+                                    {username ? (
+                                        <Link to={'/UserPage'} className='username'>
+                                            User: {username}
+                                        </Link>
+                                    ) : (
+
+                                        <Link to={'/Login'} className='login'>
+                                            Login
+                                        </Link>
+                                    )}
                                 </div>
                             </ul>
                         </nav>
