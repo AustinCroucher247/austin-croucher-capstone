@@ -3,39 +3,47 @@ import { useState, useEffect } from 'react';
 import './SpaceGamePage.scss';
 import Header from '../Header/Header.jsx';
 import { useRef } from 'react';
+import axios from 'axios';
 
 function SpaceGamePage() {
     const [renderGame, setRenderGame] = useState(false);
     const [showModal, setShowModal] = useState(true);
     const [leaderboardData, setLeaderboardData] = useState([]);
     const [score, setScore] = useState(0)
+    const [showGameOverModal, setShowGameOverModal] = useState(false);
+
     const scoreRef = useRef(0);
 
 
-    const handleScore = async (score) => {
+    const handleScore = (score, game) => {
         scoreRef.current += score;
         setScore(scoreRef.current);
+    };
 
-        const username = "exampleuser"; // replace with actual username
-        const data = { username, score: scoreRef.current };
-
-        try {
-            const response = await fetch('http://localhost:8080/leaderboard', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-            const responseData = await response.json();
-            console.log(responseData);
-        } catch (error) {
-            console.error(error);
-        }
-    }
     const startGame = () => {
         setShowModal(false);
         setRenderGame(true);
+    };
+
+
+
+    const postScore = async () => {
+        const username = localStorage.getItem('username') || 'Guest';
+        const randomSuffix = Math.floor(Math.random() * 10000);
+        const uniqueUsername = username === 'Guest' ? 'Guest' + randomSuffix.toString() : username;
+        const data = { username: uniqueUsername, score: scoreRef.current };
+
+        try {
+            const response = await axios.post('http://localhost:8080/leaderboard', data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     useEffect(() => {
@@ -78,7 +86,7 @@ function SpaceGamePage() {
             <div className='game--container'>
                 {renderGame && (
                     <>
-                        <GameComponent handleScore={handleScore} />
+                        <GameComponent handleScore={handleScore} postScore={postScore} setShowGameOverModal={setShowGameOverModal} />
                         <div className='leaderboard--container'>
                             <h1 className='leaderboard--text'>Leaderboard</h1>
                             <table className='leaderboard'>
@@ -90,7 +98,7 @@ function SpaceGamePage() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {leaderboardData.map((entry, index) => (
+                                    {leaderboardData.slice(0, 8).map((entry, index) => (
                                         <tr key={entry.id}>
                                             <td>{index + 1}</td>
                                             <td>{entry.username}</td>
@@ -100,6 +108,20 @@ function SpaceGamePage() {
                                 </tbody>
                             </table>
                         </div>
+                        {
+                            showGameOverModal && (
+                                <div className="game-over-modal">
+                                    <div className="modal-content1">
+                                        <h2>Game Over</h2>
+                                        <p>Your score was posted to the leaderboard.</p>
+                                        <button onClick={() => {
+                                            setShowGameOverModal(false);
+                                            window.location.reload();
+                                        }}>Close</button>
+                                    </div>
+                                </div>
+                            )
+                        }
                     </>
                 )}
             </div>

@@ -6,13 +6,14 @@ const GameComponent = props => {
     const scoreRef = useRef();
 
 
-
     useEffect(() => {
-        game.mount(canvasRef.current, scoreRef.current, props.handleScore);
+        // eslint-disable-next-line
+        game.mount(canvasRef.current, scoreRef.current, props.handleScore, props.postScore, props.setShowGameOverModal);
 
         return () => {
             game.unmount();
         };
+        // eslint-disable-next-line
     }, []);
 
     return (

@@ -56,15 +56,14 @@ function keyHandler({ key, type }) {
 
 
 // Game logic goes here
-game.mount = (canvas, score, handleScore) => {
+game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal) => {
     canvas.width = 1024
     canvas.height = 576
-
+    console.log(postScore)
 
     console.log('mount was called');
 
     const c = canvas.getContext('2d');
-
 
     class Player {
         constructor() {
@@ -470,8 +469,6 @@ game.mount = (canvas, score, handleScore) => {
 
             //projectile hits player. The if statement insures that the projectile has to hit the middle of the player
             //in order to actually register as a hit and destroy
-
-
             if (invaderProjectile.position.y + invaderProjectile.height >=
                 player.position.y && invaderProjectile.position.x +
                 invaderProjectile.width >= player.position.x &&
@@ -488,11 +485,16 @@ game.mount = (canvas, score, handleScore) => {
                     player.opacity = 0
                     game.active = true
 
-                }, 0)
 
+                }, 0)
+                setTimeout(() => {
+                    setShowGameOverModal(true);
+                }, 100);
                 setTimeout(() => {
                     game.unmount();
-                }, 1000);
+                    postScore();
+                }, 500);
+
 
                 createParticles({
                     object: player,
@@ -520,6 +522,7 @@ game.mount = (canvas, score, handleScore) => {
 
         });
     };
+    // eslint-disable-next-line no-unused-vars
     let x = 0;
 
     game.intervalId = setInterval(() => {
