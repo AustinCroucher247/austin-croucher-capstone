@@ -11,7 +11,7 @@ import ActiveRooms from '../ActiveStreams/ActiveRooms';
 
 const SERVER_ADDRESS = 'http://localhost:8080'
 
-function SpaceGamePage() {
+function SpaceGamePage(props) {
     const [renderGame, setRenderGame] = useState(false);
     const [showModal, setShowModal] = useState(true);
     const [leaderboardData, setLeaderboardData] = useState([]);
@@ -21,9 +21,6 @@ function SpaceGamePage() {
     const scoreRef = useRef(0);
     const socketRef = useRef(null);
 
-    const handleCloseRoom = (roomId) => {
-        socketRef.current.emit('closeRoom', roomId);
-    };
 
     const handleScore = (score, game) => {
         scoreRef.current += score;
@@ -37,25 +34,13 @@ function SpaceGamePage() {
 
     };
 
-
-    const handleCreateRoom = () => {
-        socketRef.current.emit('createRoom');
-    };
-
-    const handleJoinRoom = (roomId) => {
-        socketRef.current.emit('joinRoom', roomId);
-    };
-
-    const handleLeaveRoom = (roomId) => {
-        socketRef.current.emit('leaveRoom', roomId);
-    };
-
     const [rooms, setRooms] = useState({});
 
     useEffect(() => {
         if (socketRef.current) {
             socketRef.current.on('updateRooms', (updatedRooms) => {
                 setRooms(updatedRooms);
+                console.log(rooms)
             });
 
             return () => {
@@ -95,36 +80,6 @@ function SpaceGamePage() {
             socketRef.current.disconnect();
         };
     }, []);
-
-
-
-
-
-
-    // useEffect(() => {
-    //     socketRef.current = io(`${SERVER_ADDRESS}`, {
-    //         transports: ['websocket', 'polling'],
-    //     });
-
-    //     socketRef.current.on('connect', () => {
-    //         console.log('Connected to WebSocket server:', socketRef.current.id);
-    //     });
-
-    //     socketRef.current.on('RECEIVE', (data) => {
-    //         console.log(data)
-    //     });
-
-    //     socketRef.current.on('gameEvent', (event) => {
-    //         // Update the game state based on the received event
-    //     });
-
-
-    //     socketRef.current.emit('EXAMPLE', "Send this string to this server", "Also send this!");
-
-    //     return () => {
-    //         socketRef.current.disconnect();
-    //     };
-    // }, []);
 
     const postScore = async () => {
         const username = localStorage.getItem('username') || 'Guest';
@@ -185,13 +140,12 @@ function SpaceGamePage() {
             )}
 
             <div className='heading--container'>
-                {/* <img className='heading--text' src={SpaceInvaderLogo} alt="logo" /> */}
             </div>
             <p className='score'>{showModal ? "" : 'Score: ' + score}</p>
             <div className='game--container'>
                 {renderGame && (
                     <>
-                        <GameComponent handleScore={handleScore} postScore={postScore} setShowGameOverModal={setShowGameOverModal} />
+                        <GameComponent player={true} socketRef={socketRef} handleScore={handleScore} postScore={postScore} setShowGameOverModal={setShowGameOverModal} />
 
                         {
                             showGameOverModal && (
@@ -211,23 +165,7 @@ function SpaceGamePage() {
                 )}
             </div>
             <Link to={'/ActiveStreams/SpaceInvaders'}> <button>Active Streams</button> </Link>
-            {/* <ActiveRooms rooms={rooms} handleJoinRoom={handleJoinRoom} handleCloseRoom={handleCloseRoom} /> */}
 
-            {/* <div>
-                <h2>Active Rooms</h2>
-                <ul>
-                    {Object.entries(rooms).map(([roomId, room]) => (
-                        <li key={roomId}>
-                            Room ID: {roomId} - Players: {room.players.length}
-                            <button onClick={() => handleJoinRoom(roomId)}>Join</button>
-                            <button onClick={() => handleCloseRoom(roomId)}>Close Room</button>
-
-
-                        </li>
-                    ))}
-                </ul>
-                <button onClick={handleCreateRoom}>Create Room</button>
-            </div> */}
             <div className="parent-container">
 
                 <div className='leaderboard--container'>

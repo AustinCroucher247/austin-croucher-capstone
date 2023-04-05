@@ -21,6 +21,8 @@ const SERVER_ADDRESS = 'http://localhost:8080';
 
 function App() {
   const [rooms, setRooms] = useState({});
+  const [roomList, setRoomList] = useState([]);
+
   const socketRef = useRef(null);
   const [navigateToChatRoom, setNavigateToChatRoom] = useState(null);
 
@@ -55,6 +57,10 @@ function App() {
     setNavigateToChatRoom(<Navigate to={`/ChatRoom/${roomId}`} />);
   };
 
+  useEffect(() => {
+    setRoomList(Object.entries(rooms).map(([roomId, room]) => ({ id: roomId, players: room.players })));
+  }, [rooms]);
+
   return (
     <BrowserRouter>
       {navigateToChatRoom}
@@ -66,9 +72,9 @@ function App() {
         <Route path='/Leaderboards' element={<Leaderboards />} />
         <Route path='/AboutUs' element={<AboutUs />} />
         <Route path='/Login' element={<Login />} />
-        <Route path='/SpaceInvaders' element={<SpaceGamePage />} />
+        <Route path='/SpaceInvaders' element={<SpaceGamePage socketRef={socketRef} />} />
         <Route path='/ActiveStreams/Pacman' element={<ActivePacMan />} />
-        <Route path='/ActiveStreams/SpaceInvaders' element={<ActiveSpaceInvaders rooms={rooms} handleJoinRoom={handleJoinRoom} handleCloseRoom={handleCloseRoom} />} />
+        <Route path='/ActiveStreams/SpaceInvaders' element={<ActiveSpaceInvaders roomList={roomList} rooms={rooms} handleJoinRoom={handleJoinRoom} handleCloseRoom={handleCloseRoom} />} />
         <Route path='/ChatRoom/:roomId' element={<ChatRoom />} />
         <Route path="/UserPage" element={<UserPage />} />
       </Routes>

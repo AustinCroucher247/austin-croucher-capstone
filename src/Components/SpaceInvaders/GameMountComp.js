@@ -8,7 +8,7 @@ const GameComponent = props => {
 
     useEffect(() => {
         // eslint-disable-next-line
-        game.mount(canvasRef.current, scoreRef.current, props.handleScore, props.postScore, props.setShowGameOverModal);
+        game.mount(canvasRef.current, scoreRef.current, props.handleScore, props.postScore, props.setShowGameOverModal, props.socketRef, props.player);
 
         return () => {
             game.unmount();

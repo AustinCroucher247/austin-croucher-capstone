@@ -1,15 +1,19 @@
 import React from 'react';
+import { useEffect } from 'react';
 
-function ActiveRooms({ rooms, handleJoinRoom, handleCloseRoom }) {
+function ActiveRooms({ rooms, handleJoinRoom, handleCloseRoom, roomList }) {
+    useEffect(() => {
+        console.log(rooms)
+    }, [rooms])
     return (
         <div>
             <h2>Active Rooms</h2>
             <ul>
-                {Object.entries(rooms).map(([roomId, room]) => (
-                    <li key={roomId}>
-                        Room ID: {roomId} - Players: {room.players.length}
-                        <button onClick={() => handleJoinRoom(roomId)}>Join</button>
-                        <button onClick={() => handleCloseRoom(roomId)}>Close Room</button>
+                {roomList.map((room) => (
+                    <li key={room.id}>
+                        Room ID: {room.id} - Players: {room.players.length}
+                        <button onClick={() => handleJoinRoom(room.id)}>Join</button>
+                        <button onClick={() => handleCloseRoom(room.id)}>Close Room</button>
                     </li>
                 ))}
             </ul>

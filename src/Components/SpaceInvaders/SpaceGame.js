@@ -5,7 +5,7 @@ import playerKilled from '../../assets/audio/explosion.wav'
 import gameOver from '../../assets/audio/GameOver.wav'
 import invaderKilled2 from '../../assets/audio/invaderKilled2.wav'
 
-const game = {
+let game = {
     over: false,
     active: true
 };
@@ -56,7 +56,7 @@ function keyHandler({ key, type }) {
 
 
 // Game logic goes here
-game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal) => {
+game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socketRef, playerMode) => {
     canvas.width = 1024
     canvas.height = 500
     console.log(postScore)
@@ -193,7 +193,7 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal) => {
             this.position = position
             this.velocity = velocity
             this.width = 4
-            this.height = 15
+            this.height = 12
         }
         draw() {
             c.fillStyle = 'lime'
@@ -321,10 +321,10 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal) => {
 
 
 
-    const projectiles = []
-    const grids = []
-    const invaderProjectiles = []
-    const particles = []
+    let projectiles = []
+    let grids = []
+    let invaderProjectiles = []
+    let particles = []
     for (let i = 0; i < 100; i++) {
         particles.push(new Particle({
             position: {
@@ -359,7 +359,7 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal) => {
             }))
         }
     }
-    const player = new Player()
+    let player = new Player()
     canvas.width = 1024
     canvas.height = 576
     let frames = 0
@@ -522,14 +522,55 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal) => {
 
         });
     };
-    // eslint-disable-next-line no-unused-vars
-    let x = 0;
 
-    game.intervalId = setInterval(() => {
-        ;
-        x++;
-        animate();
-    }, 50);
+    // If player...
+    if (playerMode) {
+        game.intervalId = setInterval(() => {
+            animate();
+            socketRef.current.emit('updateGameState', {
+
+                player,
+                grids,
+                frames,
+                projectiles,
+                particles,
+                game,
+                invaderProjectiles
+            });
+
+        }, 50);
+
+    }
+
+    else {
+        socketRef.current.on('updateGameState', state => {
+            // Update state
+            player.position = state.player.position;
+            player.rotate = state.player.rotate;
+            grids = state.grids;
+            frames = state.frames;
+            projectiles = state.projectiles;
+            particles = state.particles.map(particle => new Particle(particle));
+            game = state.game;
+            invaderProjectiles = state.invaderProjectiles;
+
+            // Animate
+            c.fillStyle = 'black';
+            c.fillRect(0, 0, canvas.width, canvas.height);
+            player.draw();
+            particles.forEach(particle => particle.draw());
+
+        })
+    }
+
+
+    // If viewer...
+    // get state from server over socket
+    // draw game every x ms
+
+    // etc..
+    // })
+
     document.addEventListener('keydown', (event) => {
         if (event.key === ' ' && !keys.space.pressed) {
             projectiles.push(new Projectile({
