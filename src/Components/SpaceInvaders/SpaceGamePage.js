@@ -5,6 +5,9 @@ import Header from '../Header/Header.jsx';
 import { useRef } from 'react';
 import axios from 'axios';
 import { io } from 'socket.io-client';
+import { Link } from 'react-router-dom';
+import ActiveRooms from '../ActiveStreams/ActiveRooms';
+
 
 const SERVER_ADDRESS = 'http://localhost:8080'
 
@@ -18,6 +21,9 @@ function SpaceGamePage() {
     const scoreRef = useRef(0);
     const socketRef = useRef(null);
 
+    const handleCloseRoom = (roomId) => {
+        socketRef.current.emit('closeRoom', roomId);
+    };
 
     const handleScore = (score, game) => {
         scoreRef.current += score;
@@ -27,7 +33,36 @@ function SpaceGamePage() {
     const startGame = () => {
         setShowModal(false);
         setRenderGame(true);
+        socketRef.current.emit('createRoom');
+
     };
+
+
+    const handleCreateRoom = () => {
+        socketRef.current.emit('createRoom');
+    };
+
+    const handleJoinRoom = (roomId) => {
+        socketRef.current.emit('joinRoom', roomId);
+    };
+
+    const handleLeaveRoom = (roomId) => {
+        socketRef.current.emit('leaveRoom', roomId);
+    };
+
+    const [rooms, setRooms] = useState({});
+
+    useEffect(() => {
+        if (socketRef.current) {
+            socketRef.current.on('updateRooms', (updatedRooms) => {
+                setRooms(updatedRooms);
+            });
+
+            return () => {
+                socketRef.current.off('updateRooms');
+            };
+        }
+    }, [socketRef.current]);
 
     useEffect(() => {
         socketRef.current = io(`${SERVER_ADDRESS}`, {
@@ -46,13 +81,50 @@ function SpaceGamePage() {
             // Update the game state based on the received event
         });
 
+        // Add this line to receive the room updates from the server
+        socketRef.current.on('updateRooms', (updatedRooms) => {
+            setRooms(updatedRooms);
+        });
 
         socketRef.current.emit('EXAMPLE', "Send this string to this server", "Also send this!");
 
         return () => {
+            if (socketRef.current) {
+                socketRef.current.off('updateRooms');
+            }
             socketRef.current.disconnect();
         };
     }, []);
+
+
+
+
+
+
+    // useEffect(() => {
+    //     socketRef.current = io(`${SERVER_ADDRESS}`, {
+    //         transports: ['websocket', 'polling'],
+    //     });
+
+    //     socketRef.current.on('connect', () => {
+    //         console.log('Connected to WebSocket server:', socketRef.current.id);
+    //     });
+
+    //     socketRef.current.on('RECEIVE', (data) => {
+    //         console.log(data)
+    //     });
+
+    //     socketRef.current.on('gameEvent', (event) => {
+    //         // Update the game state based on the received event
+    //     });
+
+
+    //     socketRef.current.emit('EXAMPLE', "Send this string to this server", "Also send this!");
+
+    //     return () => {
+    //         socketRef.current.disconnect();
+    //     };
+    // }, []);
 
     const postScore = async () => {
         const username = localStorage.getItem('username') || 'Guest';
@@ -138,6 +210,24 @@ function SpaceGamePage() {
                     </>
                 )}
             </div>
+            <Link to={'/ActiveStreams/SpaceInvaders'}> <button>Active Streams</button> </Link>
+            {/* <ActiveRooms rooms={rooms} handleJoinRoom={handleJoinRoom} handleCloseRoom={handleCloseRoom} /> */}
+
+            {/* <div>
+                <h2>Active Rooms</h2>
+                <ul>
+                    {Object.entries(rooms).map(([roomId, room]) => (
+                        <li key={roomId}>
+                            Room ID: {roomId} - Players: {room.players.length}
+                            <button onClick={() => handleJoinRoom(roomId)}>Join</button>
+                            <button onClick={() => handleCloseRoom(roomId)}>Close Room</button>
+
+
+                        </li>
+                    ))}
+                </ul>
+                <button onClick={handleCreateRoom}>Create Room</button>
+            </div> */}
             <div className="parent-container">
 
                 <div className='leaderboard--container'>
@@ -168,3 +258,10 @@ function SpaceGamePage() {
 }
 
 export default SpaceGamePage;
+
+
+
+//onyl the person who made the room can close it
+// {socketRef.current && socketRef.current.id === room.creator && (
+//     <button onClick={() => handleCloseRoom(roomId)}>Close Room</button>
+// )}

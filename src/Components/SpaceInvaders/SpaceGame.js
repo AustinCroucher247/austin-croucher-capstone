@@ -192,11 +192,11 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal) => {
         constructor({ position, velocity }) {
             this.position = position
             this.velocity = velocity
-            this.width = 3
-            this.height = 10
+            this.width = 4
+            this.height = 15
         }
         draw() {
-            c.fillStyle = 'red'
+            c.fillStyle = 'lime'
             c.fillRect(this.position.x, this.position.y, this.width, this.height)
         }
         update() {
