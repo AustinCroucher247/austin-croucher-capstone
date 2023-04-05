@@ -21,27 +21,27 @@ function Header() {
                     <div className='header--logo--right'>
                         <nav>
                             <ul className='list'>
-                                <Link to={'/HomePage'}>
+                                <Link to={'/HomePage'} style={{ textDecoration: 'none' }}>
                                     <li className='list--item'>
                                         Home
                                     </li>
                                 </Link>
-                                <Link to={'/GameRoom'}>
+                                <Link to={'/GameRoom'} style={{ textDecoration: 'none' }}>
                                     <li className='list--item'>
                                         Game Room
                                     </li>
                                 </Link>
-                                <Link to={'/ActiveStreams'}>
+                                <Link to={'/ActiveStreams'} style={{ textDecoration: 'none' }}>
                                     <li className='list--item'>
                                         Active Streams
                                     </li>
                                 </Link>
-                                <Link to={'/Leaderboards'}>
+                                <Link to={'/Leaderboards'} style={{ textDecoration: 'none' }}>
                                     <li className='list--item'>
                                         Leaderboards
                                     </li>
                                 </Link>
-                                <Link to={'/AboutUs'}>
+                                <Link to={'/AboutUs'} style={{ textDecoration: 'none' }}>
                                     <li className='list--item'>
                                         About us
                                     </li>

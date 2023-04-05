@@ -1,3 +1,15 @@
 .username {
     padding-right: 2rem;
+    font-size: 1.5rem;
+    text-decoration: none;
+}
+
+.list--item:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.username:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }

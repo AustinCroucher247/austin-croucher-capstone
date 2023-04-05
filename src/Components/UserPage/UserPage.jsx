@@ -1,8 +1,9 @@
 import Header from '../Header/Header';
 import './UserPage.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-function UserPage() {
+function UserPage({ setLeaderboardData }) {
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('username');
@@ -24,6 +25,22 @@ function UserPage() {
         reader.readAsDataURL(file);
     };
 
+    async function fetchLeaderboard() {
+        const username = localStorage.getItem('username');
+        try {
+            const response = await axios.get(`http://localhost:8080/leaderboard?username=${username}`);
+            const data = response.data;
+            console.log(data);
+            setLeaderboardData(data);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    useEffect(() => {
+        fetchLeaderboard();
+    }, []);
+
     return (
         <>
             <Header avatar={selectedImage} />
@@ -40,6 +57,27 @@ function UserPage() {
                     {selectedImage && (
                         <img className='avatar--image' src={selectedImage} alt='Avatar' />
                     )}
+                </div>
+                <div className='leaderboard--container1'>
+                    <h1 className='leaderboard--text'>Leaderboard</h1>
+                    <table className='leaderboard'>
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Player Name</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {Array.isArray(setLeaderboardData) && setLeaderboardData.filter((entry) => entry.username === localStorage.getItem('username')).map((entry, index) => (
+                                <tr key={entry.id}>
+                                    <td>{index + 1}</td>
+                                    <td>{entry.username}</td>
+                                    <td>{entry.score}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </>

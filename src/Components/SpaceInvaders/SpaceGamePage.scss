@@ -5,7 +5,7 @@ canvas {
 .game--container {
     display: flex;
     margin-top: 3rem;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 .heading {
@@ -48,6 +48,8 @@ canvas {
         flex-direction: column;
         text-align: center;
         align-items: center;
+        width: 30%;
+        justify-content: center;
     }
 }
 
@@ -144,4 +146,11 @@ canvas {
     padding: 20px;
     border-radius: 5px;
     text-align: center;
+}
+
+.parent-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }

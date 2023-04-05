@@ -42,7 +42,7 @@
 body {
     background: linear-gradient(to bottom, rgb(62, 7, 89), rgb(159, 93, 170));
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-
+    height: 100vh;
 }
 
 .sidebar {
@@ -152,6 +152,8 @@ body {
         font-size: 2rem;
         text-align: center;
         padding-right: 10rem;
+        text-decoration: underline;
+        padding-bottom: .2rem;
 
     }
 

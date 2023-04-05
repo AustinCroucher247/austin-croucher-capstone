@@ -58,7 +58,7 @@ function keyHandler({ key, type }) {
 // Game logic goes here
 game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal) => {
     canvas.width = 1024
-    canvas.height = 576
+    canvas.height = 500
     console.log(postScore)
 
     console.log('mount was called');

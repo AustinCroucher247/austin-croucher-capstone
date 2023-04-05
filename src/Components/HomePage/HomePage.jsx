@@ -36,7 +36,7 @@ function HomePage() {
                     <h1 className='promoted--stream--header'>Promoted Stream</h1>
 
                 </div>
-                <h1 className='streamer'>Shotgun247 Playing SpaceInvaders</h1>
+                <h1 className='streamer'>Shotgun247 Playing Space Invaders</h1>
                 <div className='button--container1'>
                     <Link to={'/SpaceInvaders'}> <button className="card-button-play">Play Now</button></Link>
                     <Link to={'/ActiveStreams'}> <button className="card-button">Watch Now</button></Link>
