@@ -5,7 +5,7 @@ canvas {
 .game--container {
     display: flex;
     margin-top: 3rem;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 .heading {
@@ -49,6 +49,7 @@ canvas {
         text-align: center;
         align-items: center;
         width: 30%;
+        margin: 0 auto;
         justify-content: center;
     }
 }
@@ -152,5 +153,11 @@ canvas {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: white;
+    flex-direction: column;
     height: 100%;
+}
+
+.input--chat {
+    border: 1px solid black;
 }

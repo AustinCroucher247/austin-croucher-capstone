@@ -13,6 +13,8 @@ function ChatRoom(props) {
     const socketRef = useRef(null);
     const [chatHistory, setChatHistory] = useState([]);
 
+    const username = localStorage.getItem('username');
+
 
     useEffect(() => {
         socketRef.current = io(`${SERVER_ADDRESS}`, {
@@ -57,6 +59,7 @@ function ChatRoom(props) {
             roomId,
             text: message.trim(),
             senderId: socketRef.current.id,
+            senderName: username || "Guest"
         };
         socketRef.current.emit('message', newMessage);
         setMessages((messages) => [...messages, newMessage]);
@@ -76,7 +79,7 @@ function ChatRoom(props) {
                 {messages.map((message, index) => (
                     <div key={index}>
                         <p>{message.text}</p>
-                        <small>from: {message.senderId}</small>
+                        <small>from: {message.senderName}</small>
                     </div>
                 ))}
             </div>

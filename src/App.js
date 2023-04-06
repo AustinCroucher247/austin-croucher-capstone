@@ -32,9 +32,9 @@ function App() {
       transports: ['websocket', 'polling'],
     });
 
-    socketRef.current.on('connect', () => {
-      console.log('Connected to WebSocket server:', socketRef.current.id);
-    });
+    // socketRef.current.on('connect', () => {
+    //   console.log('Connected to WebSocket server:', socketRef.current.id);
+    // });
 
     socketRef.current.on('updateRooms', (updatedRooms) => {
       setRooms(updatedRooms);

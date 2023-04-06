@@ -26,28 +26,22 @@ function keyHandler({ key, type }) {
     if (type === 'keydown') {
         if (key === 'a') {
             keys.a.pressed = true;
-            console.log('you pressed a');
         }
         if (key === 'd') {
             keys.d.pressed = true;
-            console.log('you pressed d');
         }
         if (key === ' ') {
             keys.space.pressed = true;
-            console.log('you pressed space');
         }
     } else if (type === 'keyup') {
         if (key === 'a') {
             keys.a.pressed = false;
-            console.log('you released a');
         }
         if (key === 'd') {
             keys.d.pressed = false;
-            console.log('you released d');
         }
         if (key === ' ') {
             keys.space.pressed = false;
-            console.log('you released space');
         }
     }
 }
@@ -304,7 +298,7 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
                     }))
                 }
             }
-            console.log(this.invaders)
+            console.log(grids)
         }
         update() {
             this.position.x += this.velocity.x
@@ -317,6 +311,7 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
             }
 
         }
+
     }
 
 
@@ -478,7 +473,6 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
                 // Play sound effect when player is hit
                 player.playSoundEffect();
 
-                console.log('you lose')
 
                 setTimeout(() => {
                     invaderProjectiles.splice(index, 1)
@@ -535,7 +529,7 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
                 projectiles,
                 particles,
                 game,
-                invaderProjectiles
+                invaderProjectiles,
             });
 
         }, 50);
@@ -549,27 +543,32 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
             player.rotate = state.player.rotate;
             grids = state.grids;
             frames = state.frames;
-            projectiles = state.projectiles;
+            projectiles = state.projectiles.map(projectile => new Projectile(projectile));
             particles = state.particles.map(particle => new Particle(particle));
             game = state.game;
-            invaderProjectiles = state.invaderProjectiles;
+            invaderProjectiles = state.invaderProjectiles.map(invaderProjectile => new InvaderProjectile(invaderProjectile));
+            // grids = state.grids.map((gridState, index) => {
+            //     if (!grids[index]) {
+            //         grids[index] = new Grid();
+            //     }
+            //     grids[index].position = gridState.position;
+            //     grids[index].velocity = gridState.velocity;
+            //     grids[index].invaders = gridState.invaders.map(invader => new Invader(invader));
+            //     return grids[index];
+            // });
 
             // Animate
             c.fillStyle = 'black';
             c.fillRect(0, 0, canvas.width, canvas.height);
             player.draw();
             particles.forEach(particle => particle.draw());
-
+            projectiles.forEach(projectile => projectile.draw())
+            invaderProjectiles.forEach(invaderProjectile => invaderProjectile.draw())
+            // grids.forEach(grid => {
+            //     grid.invaders.forEach(invader => invader.draw());
+            // });
         })
     }
-
-
-    // If viewer...
-    // get state from server over socket
-    // draw game every x ms
-
-    // etc..
-    // })
 
     document.addEventListener('keydown', (event) => {
         if (event.key === ' ' && !keys.space.pressed) {
