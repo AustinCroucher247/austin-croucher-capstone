@@ -2,12 +2,21 @@
     color: white;
 }
 
-.active--card {
+.active--card1 {
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     overflow: hidden;
-    width: 10%;
+    margin-bottom: 2rem;
+    margin-right: 2rem;
+    opacity: 0.2;
+}
+
+.active--card2 {
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
     margin-bottom: 2rem;
     margin-right: 2rem;
 }

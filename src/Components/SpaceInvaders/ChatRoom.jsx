@@ -27,7 +27,6 @@ function ChatRoom(props) {
             socketRef.current.emit('joinRoom', roomId); // Join the current room
         });
 
-        // Request the chat history from the server when the component mounts
         socketRef.current.emit('requestChatHistory', roomId);
 
         socketRef.current.on('chatHistory', (history) => {
@@ -44,6 +43,7 @@ function ChatRoom(props) {
             }
         };
     }, [roomId]);
+
 
 
     const handleMessageInputChange = (event) => {
@@ -69,24 +69,29 @@ function ChatRoom(props) {
     return (
         <div>
             <Header />
-            {
-                socketRef.current && (
-                    <GameComponent player={false} socketRef={socketRef} />
-                )
-            }
-            <h2>Chat Room: {roomId}</h2>
-            <div>
-                {messages.map((message, index) => (
-                    <div key={index}>
-                        <p>{message.text}</p>
-                        <small>from: {message.senderName}</small>
+
+            <div className='viewer--container'>
+                {
+                    socketRef.current && (
+                        <GameComponent player={false} socketRef={socketRef} />
+                    )
+                }
+                <div className='parent-container'>
+                    <h2>Chat Room: {roomId}</h2>
+                    <div>
+                        {messages.map((message, index) => (
+                            <div key={index}>
+                                <p>{message.text}</p>
+                                <small>from: {message.senderName}</small>
+                            </div>
+                        ))}
                     </div>
-                ))}
+                    <form onSubmit={handleMessageFormSubmit}>
+                        <input type="text" value={message} onChange={handleMessageInputChange} />
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
             </div>
-            <form onSubmit={handleMessageFormSubmit}>
-                <input type="text" value={message} onChange={handleMessageInputChange} />
-                <button type="submit">Send</button>
-            </form>
         </div>
     );
 }

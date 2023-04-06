@@ -63,9 +63,9 @@ function HomePage() {
                         <img className="card-img2" src={PacMan} alt="Thumbnail" />
                         <div className="card-body">
                             <h2 className="card-title">Pac-man</h2>
+                            <h1 className='pac-text'>COMING SOON!!</h1>
+
                             <div className='button--container2'>
-                                <Link to={'/PacMan'}><button className="card-button-play">Play Now</button></Link>
-                                <Link to={'/ActiveStreams'}><button className="card-button">Watch Now</button></Link>
                             </div>
                         </div>
                     </div>

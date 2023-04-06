@@ -11,14 +11,14 @@ function ActiveStreams() {
             <Header />
             <h1 className='header--text'>Active Streams</h1>
             <div className='activecard--container'>
-                <div className="active--card">
+                <div className="active--card1">
                     <img className="activecard-img2" src={PacMan} alt="Thumbnail" />
                     <div className="activecard-body">
                         <h2 className="activecard-title">Pac-man</h2>
-                        <Link to={'/ActiveStreams/PacMan'}> <button className="card-button">Watch Now</button></Link>
+                        {/* <Link to={'/ActiveStreams/PacMan'}> <button className="card-button">Watch Now</button></Link> */}
                     </div>
                 </div>
-                <div className="active--card">
+                <div className="active--card2">
                     <img className="activecard-img2" src={SpaceInvaders} alt="Thumbnail" />
                     <div className="activecard-body">
                         <h2 className="activecard-title">Space Invaders</h2>

@@ -156,8 +156,25 @@ canvas {
     background-color: white;
     flex-direction: column;
     height: 100%;
+    border: 3px solid black;
+    padding: 1rem;
+    overflow-y: scroll;
+    height: 570px;
+    border-radius: 8px;
 }
 
 .input--chat {
     border: 1px solid black;
 }
+
+.viewer--container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.chat--container {
+    display: flex;
+    flex-direction: column;
+}
+
+.chat--form {}

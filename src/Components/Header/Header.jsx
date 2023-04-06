@@ -26,11 +26,11 @@ function Header() {
                                         Home
                                     </li>
                                 </Link>
-                                <Link to={'/GameRoom'} style={{ textDecoration: 'none' }}>
+                                {/* <Link to={'/GameRoom'} style={{ textDecoration: 'none' }}>
                                     <li className='list--item'>
                                         Game Room
                                     </li>
-                                </Link>
+                                </Link> */}
                                 <Link to={'/ActiveStreams'} style={{ textDecoration: 'none' }}>
                                     <li className='list--item'>
                                         Active Streams
@@ -43,7 +43,7 @@ function Header() {
                                 </Link>
                                 <Link to={'/AboutUs'} style={{ textDecoration: 'none' }}>
                                     <li className='list--item'>
-                                        About us
+                                        About Us
                                     </li>
                                 </Link>
                                 <div className='list--item--login'>

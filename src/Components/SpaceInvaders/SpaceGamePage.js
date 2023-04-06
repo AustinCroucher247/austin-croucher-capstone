@@ -20,6 +20,8 @@ function SpaceGamePage(props) {
     const { roomId } = useParams();
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
+    const [showChat, setShowChat] = useState(false);
+
     const username = localStorage.getItem('username');
 
     const scoreRef = useRef(0);
@@ -35,10 +37,9 @@ function SpaceGamePage(props) {
 
         socketRef.current.on('connect', () => {
             console.log('Connected to WebSocket server:', socketRef.current.id);
-            socketRef.current.emit('joinRoom', roomId); // Join the current room
+            socketRef.current.emit('joinRoom', roomId);
         });
 
-        // Request the chat history from the server when the component mounts
         socketRef.current.emit('requestChatHistory', roomId);
 
         socketRef.current.on('chatHistory', (history) => {
@@ -81,6 +82,7 @@ function SpaceGamePage(props) {
     const startGame = () => {
         setShowModal(false);
         setRenderGame(true);
+        setShowChat(true);
         socketRef.current.emit('createRoom', (createdRoomId) => {
             socketRef.current.emit('joinRoom', createdRoomId);
         });
@@ -216,24 +218,31 @@ function SpaceGamePage(props) {
                     </>
                 )}
 
-                <div className="parent-container">
-                    <h2>Chat Room: {roomId}</h2>
-                    <div>
-                        {messages.map((message, index) => (
-                            <div key={index}>
-                                <p>{message.text}</p>
-                                <small>from: {message.senderName}</small>
-                            </div>
-                        ))}
+                {showChat && (
+                    <div className="parent-container">
+                        <h2>Chat Room: {roomId}</h2>
+                        <div>
+                            {messages.map((message, index) => (
+                                <div key={index}>
+                                    <p>{message.text}</p>
+                                    <small>from: {message.senderName}</small>
+                                </div>
+                            ))}
+                        </div>
+                        <form className='chat--form' onSubmit={handleMessageFormSubmit}>
+                            <label htmlFor="message">Message:</label>
+                            <input
+                                className='input--chat'
+                                type="text"
+                                id="message"
+                                name="message"
+                                value={message}
+                                onChange={handleMessageInputChange}
+                            />
+                            <button type="submit">Send</button>
+                        </form>
                     </div>
-                    <form onSubmit={handleMessageFormSubmit}>
-                        <input className='input--chat' type="text" value={message} onChange={handleMessageInputChange} />
-                        <button type="submit">Send</button>
-                    </form>
-
-
-
-                </div>
+                )}
                 {/* <Link to={'/ActiveStreams/SpaceInvaders'}> <button>Active Streams</button> </Link> */}
 
 

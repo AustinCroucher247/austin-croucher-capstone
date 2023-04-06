@@ -21,6 +21,11 @@
     }
 }
 
+.pac-text {
+    color: black;
+}
+
+
 .list {
     display: flex;
     align-items: center;
@@ -40,7 +45,7 @@
 }
 
 body {
-    background: linear-gradient(to bottom, rgb(62, 7, 89), rgb(159, 93, 170));
+    background: linear-gradient(to right, rgb(62, 7, 89), rgb(159, 93, 170));
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     height: 100vh;
 }
