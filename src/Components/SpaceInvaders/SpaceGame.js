@@ -4,6 +4,8 @@ import playerKilled from '../../assets/audio/explosion.wav'
 // import backgroundMusic from '../spaceinvaders/Assets/backgroundMusic.wav'
 import gameOver from '../../assets/audio/GameOver.wav'
 import invaderKilled2 from '../../assets/audio/invaderKilled2.wav'
+import invaderImg from '../../../src/assets/invader.png'
+import playerImg from '../../../src/assets/spaceship.png'
 
 let game = {
     over: false,
@@ -68,7 +70,7 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
             this.rotation = 0
             this.opacity = 1
             this.image = new Image()
-            this.image.src = 'https://i.imgur.com/ZYTCYRu.png'
+            this.image.src = playerImg
             this.width = 0
             this.height = 0
             this.position = {
@@ -206,22 +208,22 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
                 y: 0
             }
             this.image = new Image()
-            this.image.src = 'https://i.imgur.com/Vz7d5Bn.png'
-            this.width = 0
-            this.height = 0
-            this.position = {
-                x: position.x,
-                y: position.y
-            }
-            this.image.onload = () => {
-                const scale = 1
-                this.width = this.image.width * scale
-                this.height = this.image.height * scale
-                this.position = {
-                    x: position.x,
-                    y: position.y
+            this.image.src = invaderImg
+            this.width = 31
+            this.height = 39
+            this.position = position;
+            this.imagePromise = new Promise((resolve, reject) => {
+                this.image.onload = () => {
+                    resolve();
+                    const scale = 1
+                    this.width = this.image.width * scale
+                    this.height = this.image.height * scale
+                    this.position = {
+                        x: position.x,
+                        y: position.y
+                    }
                 }
-            }
+            })
 
             // Create audio object for sound effect
             this.audio = new Audio(invaderKilled2);
@@ -229,13 +231,15 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
         }
 
         draw() {
-            c.drawImage(
-                this.image,
-                this.position.x,
-                this.position.y,
-                this.width,
-                this.height
-            )
+            this.imagePromise.then(() => {
+                c.drawImage(
+                    this.image,
+                    this.position.x,
+                    this.position.y,
+                    this.width,
+                    this.height
+                )
+            })
         }
 
         update({ velocity }) {
@@ -298,9 +302,9 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
                     }))
                 }
             }
-            console.log(grids)
         }
         update() {
+
             this.position.x += this.velocity.x
             this.position.y += this.velocity.y
             this.velocity.y = 0
@@ -365,6 +369,8 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
     addEventListener('keydown', keyHandler);
 
     const animate = () => {
+        console.log(grids)
+
         c.fillStyle = 'black';
         c.fillRect(0, 0, canvas.width, canvas.height);
         player.update()
@@ -422,6 +428,7 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
                 });
             });
         });
+        console.log(grids)
 
         if (keys.a.pressed && player.position.x >= 0) {
             player.velocity.x = - 20
@@ -521,8 +528,9 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
     if (playerMode) {
         game.intervalId = setInterval(() => {
             animate();
-            socketRef.current.emit('updateGameState', {
+            console.log(grids)
 
+            socketRef.current.emit('updateGameState', {
                 player,
                 grids,
                 frames,
@@ -538,6 +546,7 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
 
     else {
         socketRef.current.on('updateGameState', state => {
+
             // Update state
             player.position = state.player.position;
             player.rotate = state.player.rotate;
@@ -547,26 +556,20 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
             particles = state.particles.map(particle => new Particle(particle));
             game = state.game;
             invaderProjectiles = state.invaderProjectiles.map(invaderProjectile => new InvaderProjectile(invaderProjectile));
-            // grids = state.grids.map((gridState, index) => {
-            //     if (!grids[index]) {
-            //         grids[index] = new Grid();
-            //     }
-            //     grids[index].position = gridState.position;
-            //     grids[index].velocity = gridState.velocity;
-            //     grids[index].invaders = gridState.invaders.map(invader => new Invader(invader));
-            //     return grids[index];
-            // });
 
-            // Animate
+            state.grids.forEach(grid => {
+                grid.invaders.forEach(invader => {
+                    new Invader(invader).draw();
+                })
+            })
+
             c.fillStyle = 'black';
             c.fillRect(0, 0, canvas.width, canvas.height);
             player.draw();
             particles.forEach(particle => particle.draw());
             projectiles.forEach(projectile => projectile.draw())
             invaderProjectiles.forEach(invaderProjectile => invaderProjectile.draw())
-            // grids.forEach(grid => {
-            //     grid.invaders.forEach(invader => invader.draw());
-            // });
+
         })
     }
 
@@ -597,3 +600,6 @@ game.unmount = () => {
 
 export default game;
 
+            // grids.forEach(grid => {
+            //     grid.invaders.forEach(invader => invader.draw());
+            // });

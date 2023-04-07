@@ -19,7 +19,6 @@ const GameComponent = props => {
     return (
         <>
             <canvas ref={canvasRef} />
-            {console.log(canvasRef)}
 
         </>
     );
