@@ -39,6 +39,7 @@ function UserPage({ setLeaderboardData }) {
 
     useEffect(() => {
         fetchLeaderboard();
+        // eslint-disable-next-line
     }, []);
 
     return (

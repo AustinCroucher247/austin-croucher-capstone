@@ -6,7 +6,6 @@ import { useRef } from 'react';
 import axios from 'axios';
 import { io } from 'socket.io-client';
 import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 
 const SERVER_ADDRESS = 'http://localhost:8080'
@@ -29,6 +28,7 @@ function SpaceGamePage(props) {
     const handleMessageInputChange = (event) => {
         setMessage(event.target.value);
     };
+    // eslint-disable-next-line
     useEffect(() => {
         socketRef.current = io(`${SERVER_ADDRESS}`, {
             transports: ['websocket', 'polling'],
@@ -55,6 +55,7 @@ function SpaceGamePage(props) {
                 socketRef.current.disconnect();
             }
         };
+        // eslint-disable-next-line
     }, [roomId]);
     const handleMessageFormSubmit = (event) => {
         event.preventDefault();
@@ -90,7 +91,7 @@ function SpaceGamePage(props) {
     };
 
     const [rooms, setRooms] = useState({});
-
+    // eslint-disable-next-line
     useEffect(() => {
         if (socketRef.current) {
             socketRef.current.on('updateRooms', (updatedRooms) => {
@@ -102,6 +103,7 @@ function SpaceGamePage(props) {
                 socketRef.current.off('updateRooms');
             };
         }
+        // eslint-disable-next-line
     }, [socketRef.current]);
 
     // useEffect(() => {

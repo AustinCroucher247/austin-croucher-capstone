@@ -11,7 +11,6 @@ function ChatRoom(props) {
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
     const socketRef = useRef(null);
-    const [chatHistory, setChatHistory] = useState([]);
 
     const username = localStorage.getItem('username');
 
