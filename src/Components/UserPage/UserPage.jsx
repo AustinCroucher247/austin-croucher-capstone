@@ -31,6 +31,7 @@ function UserPage() {
         }
 
         fetchLeaderboard();
+        // eslint-disable-next-line
     }, []);
 
 
