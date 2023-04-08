@@ -17,3 +17,40 @@
 .leaderboard--container1 {
     width: 30%;
 }
+
+.avatar--image {
+    width: 20%;
+    margin: 0 auto;
+    margin-top: 2rem;
+    border: 2px solid black;
+}
+
+.userImage--container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.avatar--container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.leaderboard--container1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logout--button {
+    width: 50%;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+
+.container--container {
+    display: flex;
+    justify-content: center;
+}

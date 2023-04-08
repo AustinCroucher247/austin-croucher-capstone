@@ -6,6 +6,10 @@ import { useRef } from 'react';
 import axios from 'axios';
 import { io } from 'socket.io-client';
 import { useParams } from 'react-router-dom';
+import wasdKeys from '../../assets/wasd-removebg-preview-removebg-preview (1).png'
+import spaceKeys from '../../assets/101-1017248_parallel-hd-png-download-removebg-preview.png'
+
+
 
 
 const SERVER_ADDRESS = 'http://localhost:8080'
@@ -20,6 +24,8 @@ function SpaceGamePage(props) {
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
     const [showChat, setShowChat] = useState(false);
+    const [showLeaderboard, setShowLeaderboard] = useState(false)
+    const [showControls, setShowControls] = useState(true)
 
     const username = localStorage.getItem('username');
 
@@ -54,6 +60,7 @@ function SpaceGamePage(props) {
             if (socketRef.current) {
                 socketRef.current.disconnect();
             }
+
         };
         // eslint-disable-next-line
     }, [roomId]);
@@ -84,6 +91,8 @@ function SpaceGamePage(props) {
         setShowModal(false);
         setRenderGame(true);
         setShowChat(true);
+        setShowControls(false)
+        setShowLeaderboard(true)
         socketRef.current.emit('createRoom', (createdRoomId) => {
             socketRef.current.emit('joinRoom', createdRoomId);
         });
@@ -106,36 +115,7 @@ function SpaceGamePage(props) {
         // eslint-disable-next-line
     }, [socketRef.current]);
 
-    // useEffect(() => {
-    //     socketRef.current = io(`${SERVER_ADDRESS}`, {
-    //         transports: ['websocket', 'polling'],
-    //     });
 
-    //     socketRef.current.on('connect', () => {
-    //         console.log('Connected to WebSocket server:', socketRef.current.id);
-    //     });
-
-    //     socketRef.current.on('RECEIVE', (data) => {
-    //         console.log(data)
-    //     });
-
-    //     socketRef.current.on('gameEvent', (event) => {
-    //         // Update the game state based on the received event
-    //     });
-
-    //     // Add this line to receive the room updates from the server
-    //     socketRef.current.on('updateRooms', (updatedRooms) => {
-    //         setRooms(updatedRooms);
-    //     });
-
-
-    //     return () => {
-    //         if (socketRef.current) {
-    //             socketRef.current.off('updateRooms');
-    //         }
-    //         socketRef.current.disconnect();
-    //     };
-    // }, []);
 
     const postScore = async () => {
         const username = localStorage.getItem('username') || 'Guest';
@@ -190,6 +170,30 @@ function SpaceGamePage(props) {
                             <button className='modal--button' onClick={startGame}>
                                 Start
                             </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {showControls && (
+                <div className='modal--container1'>
+                    <div className='modal--content'>
+                        <h2 className='modal--title'>Space Invaders Controls</h2>
+                        <p className='modal--description'>
+                            <div className='controls-container'>
+                                <div className='wasd-flex'>
+                                    <img className='wasd' src={wasdKeys} alt='WASD keys' />
+                                    <p>.................................................</p>
+                                    <h5>A: Move Left D: Move Right</h5>
+                                </div>
+                                <div className='space-flex'>
+                                    <img className='space' src={spaceKeys} alt='Space key' />
+                                    <p>..................................................................</p>
+                                    <h5>SHOOT!</h5>
+
+                                </div>
+                            </div>
+                        </p>
+                        <div className='modal--button--container'>
                         </div>
                     </div>
                 </div>
@@ -251,27 +255,30 @@ function SpaceGamePage(props) {
 
 
             </div>
-            <div className='leaderboard--container'>
-                <h1 className='leaderboard--text'>Leaderboard</h1>
-                <table className='leaderboard'>
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Player Name</th>
-                            <th>Score</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {leaderboardData.slice(0, 7).map((entry, index) => (
-                            <tr key={entry.id}>
-                                <td>{index + 1}</td>
-                                <td>{entry.username}</td>
-                                <td>{entry.score}</td>
+            {showLeaderboard && (
+                <div className='leaderboard--container'>
+                    <h1 className='leaderboard--text'>Leaderboard</h1>
+                    <table className='leaderboard'>
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Player Name</th>
+                                <th>Score</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            {leaderboardData.slice(0, 7).map((entry, index) => (
+                                <tr key={entry.id}>
+                                    <td>{index + 1}</td>
+                                    <td>{entry.username}</td>
+                                    <td>{entry.score}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
+
         </div>
     );
 }

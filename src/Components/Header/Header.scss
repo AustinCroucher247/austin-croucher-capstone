@@ -2,6 +2,7 @@
     padding-right: 2rem;
     font-size: 1.5rem;
     text-decoration: none;
+    margin-left: .5rem;
 }
 
 .list--item:hover {
@@ -12,4 +13,11 @@
 .username:hover {
     text-decoration: underline;
     cursor: pointer;
+}
+
+.header--avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 5px;
 }

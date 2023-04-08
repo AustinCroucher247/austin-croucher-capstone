@@ -3,23 +3,22 @@ import { useParams } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import Header from '../Header/Header';
 import GameComponent from './GameMountComp';
+import { useNavigate } from 'react-router-dom';
 const SERVER_ADDRESS = 'http://localhost:8080';
-
 
 function ChatRoom(props) {
     const { roomId } = useParams();
+    const navigate = useNavigate();
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
     const socketRef = useRef(null);
 
     const username = localStorage.getItem('username');
 
-
     useEffect(() => {
         socketRef.current = io(`${SERVER_ADDRESS}`, {
             transports: ['websocket', 'polling'],
         });
-
 
         socketRef.current.on('connect', () => {
             console.log('Connected to WebSocket server:', socketRef.current.id);
@@ -36,14 +35,17 @@ function ChatRoom(props) {
             setMessages((messages) => [...messages, message]);
         });
 
+        socketRef.current.on('disconnect', () => {
+            console.log('Disconnected from WebSocket server:', socketRef.current.id);
+            navigate('/ActiveStreams');
+        });
+
         return () => {
             if (socketRef.current) {
                 socketRef.current.disconnect();
             }
         };
-    }, [roomId]);
-
-
+    }, [roomId, navigate]);
 
     const handleMessageInputChange = (event) => {
         setMessage(event.target.value);
@@ -76,7 +78,7 @@ function ChatRoom(props) {
                     )
                 }
                 <div className='parent-container'>
-                    <h2>Chat Room: {roomId}</h2>
+                    <h2>Chat Room:</h2>
                     <div>
                         {messages.map((message, index) => (
                             <div key={index}>

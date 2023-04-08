@@ -109,7 +109,7 @@ canvas {
 
     &:focus,
     &:hover {
-        background: #BCBCBC;
+        background: purple;
     }
 }
 
@@ -150,7 +150,6 @@ canvas {
 }
 
 .parent-container {
-    display: flex;
     justify-content: center;
     align-items: center;
     background-color: white;
@@ -175,4 +174,46 @@ canvas {
 .chat--container {
     display: flex;
     flex-direction: column;
+}
+
+.modal--container1 {
+    background-color: #dadfe1;
+    height: 13rem;
+    border-radius: 10px;
+    text-align: center;
+    padding: 3rem 1rem 0rem 1rem;
+    margin: 0 auto;
+    margin-top: 1rem;
+    width: 50%;
+    position: relative;
+    height: 17rem;
+}
+
+.wasd {
+    top: 6rem;
+    left: 2rem;
+    width: 17%;
+
+    &-flex {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+}
+
+.space {
+    top: 12rem;
+    left: 2rem;
+    width: 20%;
+
+    &-flex {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+}
+
+.controls-container {
+    align-items: center;
 }

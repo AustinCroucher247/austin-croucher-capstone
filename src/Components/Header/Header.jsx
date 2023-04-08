@@ -1,15 +1,18 @@
-import './Header.scss'
-import HeaderLogo from '../../assets/RetroGames.jpg'
+import './Header.scss';
+import HeaderLogo from '../../assets/RetroGames.jpg';
 import { Link } from 'react-router-dom';
 
 import { useState, useEffect } from 'react';
 
 function Header() {
     const [username, setUsername] = useState('');
+    const [avatar, setAvatar] = useState(null);
 
     useEffect(() => {
         setUsername(localStorage.getItem('username'));
+        setAvatar(localStorage.getItem('avatar'));
     }, []);
+
     return (
         <div>
             <div className='header--container'>
@@ -41,18 +44,16 @@ function Header() {
                                         Leaderboards
                                     </li>
                                 </Link>
-                                <Link to={'/AboutUs'} style={{ textDecoration: 'none' }}>
-                                    <li className='list--item'>
-                                        About Us
-                                    </li>
-                                </Link>
+
                                 <div className='list--item--login'>
                                     {username ? (
-                                        <Link to={'/UserPage'} className='username'>
-                                            User: {username}
-                                        </Link>
+                                        <div className='username-container'>
+                                            {avatar && <img className='header--avatar' src={avatar} alt='User Avatar' />}
+                                            <Link to={'/UserPage'} className='username'>
+                                                User: {username}
+                                            </Link>
+                                        </div>
                                     ) : (
-
                                         <Link to={'/Login'} className='login'>
                                             Login
                                         </Link>
@@ -67,4 +68,4 @@ function Header() {
     );
 }
 
-export default Header;
+export default Header;  

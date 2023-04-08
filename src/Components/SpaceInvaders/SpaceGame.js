@@ -3,7 +3,7 @@ import projectileSound from '../../assets/audio/shoot.wav'
 import playerKilled from '../../assets/audio/explosion.wav'
 // import backgroundMusic from '../spaceinvaders/Assets/backgroundMusic.wav'
 import gameOver from '../../assets/audio/GameOver.wav'
-import invaderKilled2 from '../../assets/audio/invaderKilled2.wav'
+// import invaderKilled2 from '../../assets/audio/invaderKilled2.wav'
 import invaderImg from '../../../src/assets/invader.png'
 import playerImg from '../../../src/assets/spaceship.png'
 
@@ -226,8 +226,8 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
             })
 
             // Create audio object for sound effect
-            this.audio = new Audio(invaderKilled2);
-            this.audio.volume = 0.5
+            // this.audio = new Audio(invaderKilled2);
+            // this.audio.volume = 0.5
         }
 
         draw() {
@@ -264,9 +264,9 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
         }
 
         // Play sound effect when invader is killed
-        playSoundEffect() {
-            this.audio.play();
-        }
+        // playSoundEffect() {
+        //     this.audio.play();
+        // }
     }
     class Grid {
         constructor() {
@@ -369,7 +369,6 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
     addEventListener('keydown', keyHandler);
 
     const animate = () => {
-        console.log(grids)
 
         c.fillStyle = 'black';
         c.fillRect(0, 0, canvas.width, canvas.height);
@@ -408,7 +407,7 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
                                     object: invader,
                                     fades: true
                                 })
-                                invader.playSoundEffect();
+                                // invader.playSoundEffect();
 
                                 grid.invaders.splice(i, 1);
                                 projectiles.splice(j, 1);
@@ -428,7 +427,6 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
                 });
             });
         });
-        console.log(grids)
 
         if (keys.a.pressed && player.position.x >= 0) {
             player.velocity.x = - 20
@@ -528,7 +526,6 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
     if (playerMode) {
         game.intervalId = setInterval(() => {
             animate();
-            console.log(grids)
 
             socketRef.current.emit('updateGameState', {
                 player,
@@ -597,6 +594,7 @@ game.unmount = () => {
     removeEventListener('keydown', keyHandler);
 
 };
+
 
 export default game;
 

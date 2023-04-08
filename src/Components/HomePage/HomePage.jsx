@@ -4,7 +4,7 @@ import SpaceInvaders from '../../assets/spaceinvaders.jpg'
 import { Link } from 'react-router-dom';
 import PacMan from '../../assets/PacMan.png'
 import { useState } from 'react';
-import Video from '../../assets/SpaceInvaderVideo1.mp4'
+import Video from '../../assets/SpaceGame.mp4'
 
 
 function HomePage() {
