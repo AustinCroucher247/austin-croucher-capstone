@@ -12,55 +12,52 @@ function ChatRoom(props) {
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
     const socketRef = useRef(null);
-
     const username = localStorage.getItem('username');
 
     useEffect(() => {
-        socketRef.current = io(`${SERVER_ADDRESS}`, {
-            transports: ['websocket', 'polling'],
-        });
+        socketRef.current = io(SERVER_ADDRESS, { transports: ['websocket', 'polling'] });
 
-        socketRef.current.on('connect', () => {
+        const onConnect = () => {
             console.log('Connected to WebSocket server:', socketRef.current.id);
-            socketRef.current.emit('joinRoom', roomId); // Join the current room
-        });
+            socketRef.current.emit('joinRoom', roomId);
+        };
+
+        const onChatHistory = (history) => setMessages(history);
+
+        const onChatMessage = (msg) => setMessages((messages) => [...messages, msg]);
+
+        const onDisconnect = () => {
+            console.log('Disconnected from WebSocket server:', socketRef.current.id);
+            navigate('/ActiveStreams');
+        };
+
+        socketRef.current.on('connect', onConnect);
+        socketRef.current.on('chatHistory', onChatHistory);
+        socketRef.current.on('chatMessage', onChatMessage);
+        socketRef.current.on('disconnect', onDisconnect);
 
         socketRef.current.emit('requestChatHistory', roomId);
 
-        socketRef.current.on('chatHistory', (history) => {
-            setMessages(history);
-        });
-
-        socketRef.current.on('chatMessage', (message) => {
-            setMessages((messages) => [...messages, message]);
-        });
-
-        socketRef.current.on('disconnect', () => {
-            console.log('Disconnected from WebSocket server:', socketRef.current.id);
-            navigate('/ActiveStreams');
-        });
-
         return () => {
-            if (socketRef.current) {
-                socketRef.current.disconnect();
-            }
+            socketRef.current.off('connect', onConnect);
+            socketRef.current.off('chatHistory', onChatHistory);
+            socketRef.current.off('chatMessage', onChatMessage);
+            socketRef.current.off('disconnect', onDisconnect);
+            socketRef.current.disconnect();
         };
     }, [roomId, navigate]);
 
-    const handleMessageInputChange = (event) => {
-        setMessage(event.target.value);
-    };
+    const handleMessageInputChange = (event) => setMessage(event.target.value);
 
     const handleMessageFormSubmit = (event) => {
         event.preventDefault();
-        if (message.trim() === '') {
-            return;
-        }
+        if (message.trim() === '') return;
+
         const newMessage = {
             roomId,
             text: message.trim(),
             senderId: socketRef.current.id,
-            senderName: username || "Guest"
+            senderName: username || 'Guest',
         };
         socketRef.current.emit('message', newMessage);
         setMessages((messages) => [...messages, newMessage]);
@@ -69,14 +66,9 @@ function ChatRoom(props) {
 
     return (
         <div>
-            <Header />
-
+            <Header forceNavigate={() => navigate('/')} />
             <div className='viewer--container'>
-                {
-                    socketRef.current && (
-                        <GameComponent player={false} socketRef={socketRef} />
-                    )
-                }
+                {socketRef.current && <GameComponent player={false} socketRef={socketRef} />}
                 <div className='parent-container'>
                     <h2>Chat Room:</h2>
                     <div>
@@ -88,8 +80,8 @@ function ChatRoom(props) {
                         ))}
                     </div>
                     <form onSubmit={handleMessageFormSubmit}>
-                        <input type="text" value={message} onChange={handleMessageInputChange} />
-                        <button type="submit">Send</button>
+                        <input type='text' value={message} onChange={handleMessageInputChange} />
+                        <button type='submit'>Send</button>
                     </form>
                 </div>
             </div>

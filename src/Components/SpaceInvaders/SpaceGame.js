@@ -311,7 +311,7 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
 
             if (this.position.x + this.width >= canvas.width || this.position.x <= 0) {
                 this.velocity.x = -this.velocity.x
-                this.velocity.y = 30
+                this.velocity.y = 75
             }
 
         }
@@ -533,7 +533,6 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
                 frames,
                 projectiles,
                 particles,
-                game,
                 invaderProjectiles,
             });
 
@@ -547,19 +546,14 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
             // Update state
             player.position = state.player.position;
             player.rotate = state.player.rotate;
-            grids = state.grids;
-            frames = state.frames;
             projectiles = state.projectiles.map(projectile => new Projectile(projectile));
             particles = state.particles.map(particle => new Particle(particle));
-            game = state.game;
             invaderProjectiles = state.invaderProjectiles.map(invaderProjectile => new InvaderProjectile(invaderProjectile));
-
             state.grids.forEach(grid => {
                 grid.invaders.forEach(invader => {
                     new Invader(invader).draw();
                 })
             })
-
             c.fillStyle = 'black';
             c.fillRect(0, 0, canvas.width, canvas.height);
             player.draw();

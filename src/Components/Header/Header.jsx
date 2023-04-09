@@ -1,10 +1,21 @@
 import './Header.scss';
 import HeaderLogo from '../../assets/RetroGames.jpg';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 import { useState, useEffect } from 'react';
 
-function Header() {
+function Header({ forceNavigate }) {
+    const navigate = useNavigate();
+    // eslint-disable-next-line
+    const handleLogoClick = () => {
+        if (forceNavigate) {
+            forceNavigate(); // Force navigation when the logo is clicked
+        } else {
+            navigate('/');
+        }
+    };
     const [username, setUsername] = useState('');
     const [avatar, setAvatar] = useState(null);
 
