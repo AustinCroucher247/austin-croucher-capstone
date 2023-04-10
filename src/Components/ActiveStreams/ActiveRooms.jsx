@@ -1,4 +1,3 @@
-import { object } from 'prop-types';
 import React from 'react';
 import { useEffect } from 'react';
 
