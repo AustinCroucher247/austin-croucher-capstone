@@ -534,6 +534,9 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
         });
     };
 
+
+
+
     if (playerMode) {
         game.intervalId = setInterval(() => {
             animate();
