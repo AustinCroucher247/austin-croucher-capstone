@@ -21,7 +21,7 @@ const SERVER_ADDRESS = 'https://austin-croucher-retro-rumble.herokuapp.com'
 
 function App() {
   const [rooms, setRooms] = useState({});
-  const [roomList, setRoomList] = useState([]);
+  // const [roomList, setRoomList] = useState([]);
 
   const socketRef = useRef(null);
   const [navigateToChatRoom, setNavigateToChatRoom] = useState(null);
@@ -57,9 +57,9 @@ function App() {
     setNavigateToChatRoom(<Navigate to={`/ChatRoom/${roomId}`} />);
   };
 
-  useEffect(() => {
-    setRoomList(Object.entries(rooms).map(([roomId, room]) => ({ id: roomId, players: room.players })));
-  }, [rooms]);
+  // useEffect(() => {
+  //   setRoomList(Object.entries(rooms).map(([roomId, room]) => ({ id: roomId, players: room.players })));
+  // }, [rooms]);
 
   return (
     <BrowserRouter>
@@ -74,7 +74,7 @@ function App() {
         <Route path='/Login' element={<Login />} />
         <Route path='/SpaceInvaders' element={<SpaceGamePage socketRef={socketRef} />} />
         <Route path='/ActiveStreams/Pacman' element={<ActivePacMan />} />
-        <Route path='/ActiveStreams/SpaceInvaders' element={<ActiveSpaceInvaders roomList={roomList} rooms={rooms} handleJoinRoom={handleJoinRoom} handleCloseRoom={handleCloseRoom} />} />
+        <Route path='/ActiveStreams/SpaceInvaders' element={<ActiveSpaceInvaders rooms={rooms} handleJoinRoom={handleJoinRoom} handleCloseRoom={handleCloseRoom} />} />
         <Route path='/ChatRoom/:roomId' element={<ChatRoom />} />
         <Route path="/UserPage" element={<UserPage />} />
       </Routes>

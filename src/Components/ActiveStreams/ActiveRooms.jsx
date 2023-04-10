@@ -1,7 +1,8 @@
+import { object } from 'prop-types';
 import React from 'react';
 import { useEffect } from 'react';
 
-function ActiveRooms({ rooms, handleJoinRoom, handleCloseRoom, roomList }) {
+function ActiveRooms({ rooms, handleJoinRoom, handleCloseRoom }) {
     useEffect(() => {
         console.log(rooms)
     }, [rooms])
@@ -9,11 +10,11 @@ function ActiveRooms({ rooms, handleJoinRoom, handleCloseRoom, roomList }) {
         <div>
             <h2>Active Rooms</h2>
             <ul>
-                {roomList.map((room) => (
-                    <li key={room.id}>
+                {Object.entries(rooms).map((room) => (
+                    <li key={room.host}>
                         Host: {room.username} - Players: {room.players.length}
-                        <button onClick={() => handleJoinRoom(room.id)}>Join</button>
-                        <button onClick={() => handleCloseRoom(room.id)}>Close Room</button>
+                        <button onClick={() => handleJoinRoom(room.host)}>Join</button>
+                        <button onClick={() => handleCloseRoom(room.host)}>Close Room</button>
                     </li>
                 ))}
             </ul>
