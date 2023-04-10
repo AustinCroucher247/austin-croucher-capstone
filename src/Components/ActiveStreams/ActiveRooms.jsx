@@ -9,7 +9,7 @@ function ActiveRooms({ rooms, handleJoinRoom, handleCloseRoom }) {
         <div>
             <h2>Active Rooms</h2>
             <ul>
-                {Object.entries(rooms).map((room) => (
+                {Object.values(rooms).map((room) => (
                     <li key={room.host}>
                         Host: {room.username} - Players: {room.players.length}
                         <button onClick={() => handleJoinRoom(room.host)}>Join</button>
