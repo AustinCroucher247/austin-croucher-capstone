@@ -287,7 +287,7 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
                 y: 0,
             }
             this.velocity = {
-                x: 13,
+                x: 11.5,
                 y: 0
             }
             this.invaders = [
