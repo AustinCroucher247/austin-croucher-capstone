@@ -201,6 +201,10 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
             this.position.y += this.velocity.y
         }
     }
+
+
+
+
     class Invader {
         constructor({ position }) {
             this.velocity = {

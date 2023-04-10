@@ -30,7 +30,7 @@ function Login() {
         try {
             if (isRegistering) {
                 // Send a POST request to the register route with the user's credentials
-                const response = await axios.post('http://localhost:8080/register', { username, password });
+                const response = await axios.post('https://austin-croucher-retro-rumble.herokuapp.com/register', { username, password });
 
                 if (response.status === 200) {
                     // Switch to the login form after registration
@@ -45,7 +45,7 @@ function Login() {
                 }
             } else {
                 // Send a POST request to the login route with the user's credentials
-                const response = await axios.post('http://localhost:8080/login', { username, password });
+                const response = await axios.post('https://austin-croucher-retro-rumble.herokuapp.com/login', { username, password });
 
                 if (response.status === 200) {
                     // Get the JWT token from the response and store it in local storage

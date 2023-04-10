@@ -4,7 +4,7 @@ import { io } from 'socket.io-client';
 import Header from '../Header/Header';
 import GameComponent from './GameMountComp';
 import { useNavigate } from 'react-router-dom';
-const SERVER_ADDRESS = 'http://localhost:8080';
+const SERVER_ADDRESS = 'https://austin-croucher-retro-rumble.herokuapp.com';
 
 function ChatRoom(props) {
     const { roomId } = useParams();

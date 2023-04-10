@@ -124,7 +124,7 @@ function SpaceGamePage(props) {
         const data = { username: uniqueUsername, score: scoreRef.current };
 
         try {
-            const response = await axios.post('http://localhost:8080/leaderboard', data, {
+            const response = await axios.post('https://austin-croucher-retro-rumble.herokuapp.com/leaderboard', data, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -145,7 +145,7 @@ function SpaceGamePage(props) {
     useEffect(() => {
         async function fetchLeaderboard() {
             try {
-                const response = await fetch('http://localhost:8080/leaderboard');
+                const response = await fetch('https://austin-croucher-retro-rumble.herokuapp.com/leaderboard');
                 const data = await response.json();
                 setLeaderboardData(data);
             } catch (err) {

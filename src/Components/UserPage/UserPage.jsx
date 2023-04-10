@@ -18,7 +18,7 @@ function UserPage() {
     useEffect(() => {
         async function fetchLeaderboard() {
             try {
-                const response = await axios.get('http://localhost:8080/leaderboard', {
+                const response = await axios.get('https://austin-croucher-retro-rumble.herokuapp.com/leaderboard', {
                     params: {
                         username: username
                     }
