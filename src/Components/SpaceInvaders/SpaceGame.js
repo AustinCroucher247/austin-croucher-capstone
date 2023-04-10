@@ -296,10 +296,10 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
                 for (let y = 0; y < rows; y++) {
                     this.invaders.push(new Invader({
                         position: {
-                            x: x * 30,
-                            y: y * 30
+                            x: this.position.x + x * 30,
+                            y: this.position.y + y * 30
                         }
-                    }))
+                    }));
                 }
             }
         }
@@ -549,11 +549,19 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
             projectiles = state.projectiles.map(projectile => new Projectile(projectile));
             particles = state.particles.map(particle => new Particle(particle));
             invaderProjectiles = state.invaderProjectiles.map(invaderProjectile => new InvaderProjectile(invaderProjectile));
+            state.grids = state.grids.map(gridData => {
+                const grid = new Grid();
+                grid.position = gridData.position;
+                grid.velocity = gridData.velocity;
+                grid.invaders = gridData.invaders.map(invaderData => new Invader(invaderData));
+                return grid;
+            });
             state.grids.forEach(grid => {
                 grid.invaders.forEach(invader => {
-                    new Invader(invader).draw();
-                })
-            })
+                    invader.update({ velocity: grid.velocity });
+                    invader.draw();
+                });
+            });
             c.fillStyle = 'black';
             c.fillRect(0, 0, canvas.width, canvas.height);
             player.draw();

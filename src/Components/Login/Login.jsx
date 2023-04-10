@@ -6,11 +6,26 @@ import axios from 'axios'; // Don't forget to import axios
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
     const [isRegistering, setIsRegistering] = useState(false);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        // Validate username and password fields
+        if (!username) {
+            setError('Please enter a username');
+            return;
+        }
+        if (!password) {
+            setError('Please enter a password');
+            return;
+        }
+        if (isRegistering && password !== confirmPassword) {
+            setError('Passwords do not match');
+            return;
+        }
 
         try {
             if (isRegistering) {
@@ -22,6 +37,7 @@ function Login() {
                     setIsRegistering(false);
                     setUsername('');
                     setPassword('');
+                    setConfirmPassword('');
                     setError('');
                 } else {
                     // Display an error message if the registration was unsuccessful
@@ -45,7 +61,7 @@ function Login() {
             }
         } catch (error) {
             console.error(error);
-            setError('Internal server error');
+            setError('Invalid username or password');
         }
     };
 
@@ -69,6 +85,15 @@ function Login() {
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
                     />
+                    {isRegistering && (
+                        <input
+                            type="password"
+                            name="confirm-password"
+                            placeholder="Confirm password"
+                            value={confirmPassword}
+                            onChange={(event) => setConfirmPassword(event.target.value)}
+                        />
+                    )}
                     <input type="submit" value={isRegistering ? 'Register' : 'Login'} />
                     {error && <div className="error">{error}</div>}
                     {!isRegistering && (

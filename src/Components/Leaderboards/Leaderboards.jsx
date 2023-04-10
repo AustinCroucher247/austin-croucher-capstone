@@ -9,7 +9,7 @@ function Leaderboards({ username }) {
     useEffect(() => {
         async function fetchLeaderboard() {
             try {
-                const response = await axios.get('https://austin-croucher-retro-rumble.herokuapp.com/leaderboard', {
+                const response = await axios.get('http://localhost:8080/leaderboard', {
                     params: {
                         username: username
                     }
@@ -17,7 +17,6 @@ function Leaderboards({ username }) {
                 setLeaderboardData(response.data);
             } catch (err) {
                 console.error(err);
-                // Handle the error here
             }
         }
 
