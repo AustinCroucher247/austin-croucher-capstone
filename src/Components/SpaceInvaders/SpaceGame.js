@@ -202,7 +202,7 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
         }
     }
 
-
+    // eslint-disable-next-line 
     function checkInvaderCollisionWithPlayer(invader, player) {
         const distanceX = Math.abs(invader.position.x + invader.width / 2 - (player.position.x + player.width / 2));
         const distanceY = Math.abs(invader.position.y + invader.height / 2 - (player.position.y + player.height / 2));
