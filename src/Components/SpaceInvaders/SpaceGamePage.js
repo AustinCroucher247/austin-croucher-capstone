@@ -12,7 +12,7 @@ import spaceKeys from '../../assets/101-1017248_parallel-hd-png-download-removeb
 
 
 
-const SERVER_ADDRESS = 'http://localhost:8080'
+const SERVER_ADDRESS = 'https://austin-croucher-retro-rumble.herokuapp.com'
 
 function SpaceGamePage(props) {
     const [renderGame, setRenderGame] = useState(false);
