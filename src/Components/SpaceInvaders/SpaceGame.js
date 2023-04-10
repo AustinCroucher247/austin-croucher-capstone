@@ -553,14 +553,14 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
             projectiles = state.projectiles.map(projectile => new Projectile(projectile));
             particles = state.particles.map(particle => new Particle(particle));
             invaderProjectiles = state.invaderProjectiles.map(invaderProjectile => new InvaderProjectile(invaderProjectile));
-            state.grids = state.grids.map(gridData => {
+            grids = state.grids.map(gridData => {
                 const grid = new Grid();
                 grid.position = gridData.position;
                 grid.velocity = gridData.velocity;
                 grid.invaders = gridData.invaders.map(invaderData => new Invader(invaderData));
                 return grid;
             });
-            state.grids.forEach(grid => {
+            grids.forEach(grid => {
                 grid.invaders.forEach(invader => {
                     invader.update({ velocity: grid.velocity });
                     invader.draw();
@@ -570,10 +570,10 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
             c.fillRect(0, 0, canvas.width, canvas.height);
             player.draw();
             particles.forEach(particle => particle.draw());
-            projectiles.forEach(projectile => projectile.draw())
-            invaderProjectiles.forEach(invaderProjectile => invaderProjectile.draw())
+            projectiles.forEach(projectile => projectile.draw());
+            invaderProjectiles.forEach(invaderProjectile => invaderProjectile.draw());
 
-        })
+        });
     }
 
     document.addEventListener('keydown', (event) => {
