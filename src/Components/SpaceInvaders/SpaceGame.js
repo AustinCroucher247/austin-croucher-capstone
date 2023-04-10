@@ -203,7 +203,15 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
     }
 
 
+    function checkInvaderCollisionWithPlayer(invader, player) {
+        const distanceX = Math.abs(invader.position.x + invader.width / 2 - (player.position.x + player.width / 2));
+        const distanceY = Math.abs(invader.position.y + invader.height / 2 - (player.position.y + player.height / 2));
 
+        const minDistanceX = invader.width / 2 + player.width / 2;
+        const minDistanceY = invader.height / 2 + player.height / 2;
+
+        return distanceX < minDistanceX && distanceY < minDistanceY;
+    }
 
     class Invader {
         constructor({ position }) {
