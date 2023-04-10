@@ -541,14 +541,17 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
         game.intervalId = setInterval(() => {
             animate();
 
-            socketRef.current.emit('updateGameState', {
-                player,
-                grids,
-                frames,
-                projectiles,
-                particles,
-                invaderProjectiles,
-            });
+            if (frames % 2 === 0) {
+                socketRef.current.emit('updateGameState', {
+                    player,
+                    grids,
+                    frames,
+                    projectiles,
+                    particles,
+                    invaderProjectiles,
+                });
+            }
+
 
         }, 50);
 
