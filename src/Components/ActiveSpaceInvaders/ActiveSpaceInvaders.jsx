@@ -9,7 +9,7 @@ function ActiveSpaceInvaders({ rooms, handleCloseRoom, handleJoinRoom }) {
     return (
         <div>
             <Header />
-            {Object.keys(rooms).length === 0 && <p>No active streams, go play yourself!</p>}
+            {Object.keys(rooms).length === 0 && <p className='active--text'>No active streams, go play yourself!</p>}
             {Object.keys(rooms).length > 0 && <ActiveRooms rooms={rooms} handleJoinRoom={handleJoinRoom} handleCloseRoom={handleCloseRoom} roomList={roomList} />}
         </div>
     );
