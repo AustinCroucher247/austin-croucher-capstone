@@ -91,13 +91,13 @@ function SpaceGamePage(props) {
         setShowModal(false);
         setRenderGame(true);
         setShowChat(true);
-        setShowControls(false);
-        setShowLeaderboard(true);
+        setShowControls(false)
+        setShowLeaderboard(true)
 
-        const username = localStorage.getItem('username');
-        socketRef.current.emit('createRoom', username, (createdRoomId) => {
+        socketRef.current.emit('createRoom', (createdRoomId) => {
             socketRef.current.emit('joinRoom', createdRoomId);
         });
+
     };
 
     const [rooms, setRooms] = useState({});
