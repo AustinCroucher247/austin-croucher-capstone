@@ -17,7 +17,7 @@ import { Navigate } from 'react-router-dom';
 
 import { io } from 'socket.io-client';
 
-const SERVER_ADDRESS = 'http://localhost:8080';
+const SERVER_ADDRESS = 'https://austin-croucher-retro-rumble.herokuapp.com'
 
 function App() {
   const [rooms, setRooms] = useState({});
