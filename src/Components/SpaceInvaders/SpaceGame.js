@@ -213,52 +213,39 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
         return distanceX < minDistanceX && distanceY < minDistanceY;
     }
 
+
+
+    // Preload the image outside of the Invader class
+    const invaderImage = new Image();
+    invaderImage.src = invaderImg;
+
     class Invader {
         constructor({ position }) {
             this.velocity = {
                 x: 0,
                 y: 0
             }
-            this.image = new Image()
-            this.image.src = invaderImg
-            this.width = 31
-            this.height = 39
+            this.image = invaderImage; // Use the preloaded image
+            this.width = 31;
+            this.height = 39;
             this.position = position;
-            this.imagePromise = new Promise((resolve, reject) => {
-                this.image.onload = () => {
-                    resolve();
-                    const scale = 1
-                    this.width = this.image.width * scale
-                    this.height = this.image.height * scale
-                    this.position = {
-                        x: position.x,
-                        y: position.y
-                    }
-                }
-            })
-
-            // Create audio object for sound effect
-            // this.audio = new Audio(invaderKilled2);
-            // this.audio.volume = 0.5
         }
 
         draw() {
-            this.imagePromise.then(() => {
-                c.drawImage(
-                    this.image,
-                    this.position.x,
-                    this.position.y,
-                    this.width,
-                    this.height
-                )
-            })
+            c.drawImage(
+                this.image,
+                this.position.x,
+                this.position.y,
+                this.width,
+                this.height
+            );
         }
 
         update({ velocity }) {
             if (this.image) {
-                this.draw()
-                this.position.x += velocity.x
-                this.position.y += velocity.y
+                this.draw();
+                this.position.x += velocity.x;
+                this.position.y += velocity.y;
             }
         }
 
