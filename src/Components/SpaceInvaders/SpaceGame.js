@@ -225,7 +225,7 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
                 x: 0,
                 y: 0
             }
-            this.image = invaderImage; // Use the preloaded image
+            this.image = invaderImage;
             this.width = 31;
             this.height = 39;
             this.position = position;
@@ -545,6 +545,7 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
     }
 
     else {
+        let invaders = [];
         socketRef.current.on('updateGameState', state => {
 
             // Update state
@@ -553,17 +554,23 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
             projectiles = state.projectiles.map(projectile => new Projectile(projectile));
             particles = state.particles.map(particle => new Particle(particle));
             invaderProjectiles = state.invaderProjectiles.map(invaderProjectile => new InvaderProjectile(invaderProjectile));
-            state.grids.forEach(grid => {
-                grid.invaders.forEach(invader => {
-                    new Invader(invader).draw();
-                })
-            })
+            invaders = state.grids.flatMap(grid =>
+                grid.invaders.map(
+                    invader => {
+                        const updatedInvader = new Invader(invader);
+                        updatedInvader.update(invader);
+                        return updatedInvader;
+                    }
+                )
+            );
             c.fillStyle = 'black';
             c.fillRect(0, 0, canvas.width, canvas.height);
             player.draw();
             particles.forEach(particle => particle.draw());
             projectiles.forEach(projectile => projectile.draw())
             invaderProjectiles.forEach(invaderProjectile => invaderProjectile.draw())
+            invaders.forEach(invader => invader.draw()); // Draw the updated invaders
+
 
         })
     }
