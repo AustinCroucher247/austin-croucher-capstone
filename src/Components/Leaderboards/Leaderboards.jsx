@@ -41,7 +41,7 @@ function Leaderboards({ username }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {leaderboardData.slice(0, 15).map((entry, index) => (
+                                {leaderboardData.slice(0, 45).map((entry, index) => (
                                     <tr key={entry.id} style={entry.username === username ? { fontWeight: 'bold' } : {}}>
                                         <td>{index + 1}</td>
                                         <td>{entry.username}</td>
