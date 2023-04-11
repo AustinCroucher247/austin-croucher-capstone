@@ -54,7 +54,7 @@ function keyHandler({ key, type }) {
 // Game logic goes here
 game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socketRef, playerMode) => {
     canvas.width = 1075
-    canvas.height = 620
+    canvas.height = 580
     console.log(postScore)
 
     console.log('mount was called');
@@ -372,7 +372,7 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
     }
     let player = new Player()
     canvas.width = 1075
-    canvas.height = 620
+    canvas.height = 580
     let frames = 0
     let randomInterval = (Math.floor(Math.random() * 125) + 125)
 
