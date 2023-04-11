@@ -528,81 +528,82 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
         game.intervalId = setInterval(() => {
             animate();
 
-            if (frames % 2 === 0) {
-                socketRef.current.emit('updateGameState', {
-                    player,
-                    grids,
-                    frames,
-                    projectiles,
-                    particles,
-                    invaderProjectiles,
-                });
+            // if (frames % 2 === 0) {
+
+            //     });
+            // }
+            socketRef.current.emit('updateGameState', {
+                player,
+                grids,
+                frames,
+                projectiles,
+                particles,
+                invaderProjectiles,
+
+
+            }, 50);
+
+        }
+
+    else {
+                let invaders =[];
+                socketRef.current.on('updateGameState', state => {
+
+                    // Update state
+                    player.position = state.player.position;
+                    player.rotate = state.player.rotate;
+                    projectiles = state.projectiles.map(projectile => new Projectile(projectile));
+                    particles = state.particles.map(particle => new Particle(particle));
+                    invaderProjectiles = state.invaderProjectiles.map(invaderProjectile => new InvaderProjectile(invaderProjectile));
+                    invaders = state.grids.flatMap(grid =>
+                        grid.invaders.map(
+                            invader => {
+                                const updatedInvader = new Invader(invader);
+                                updatedInvader.update(invader);
+                                return updatedInvader;
+                            }
+                        )
+                    );
+                    c.fillStyle = 'black';
+                    c.fillRect(0, 0, canvas.width, canvas.height);
+                    player.draw();
+                    particles.forEach(particle => particle.draw());
+                    projectiles.forEach(projectile => projectile.draw())
+                    invaderProjectiles.forEach(invaderProjectile => invaderProjectile.draw())
+                    invaders.forEach(invader => invader.draw()); // Draw the updated invaders
+
+
+                })
             }
 
 
-        }, 50);
-
-    }
-
-    else {
-        let invaders = [];
-        socketRef.current.on('updateGameState', state => {
-
-            // Update state
-            player.position = state.player.position;
-            player.rotate = state.player.rotate;
-            projectiles = state.projectiles.map(projectile => new Projectile(projectile));
-            particles = state.particles.map(particle => new Particle(particle));
-            invaderProjectiles = state.invaderProjectiles.map(invaderProjectile => new InvaderProjectile(invaderProjectile));
-            invaders = state.grids.flatMap(grid =>
-                grid.invaders.map(
-                    invader => {
-                        const updatedInvader = new Invader(invader);
-                        updatedInvader.update(invader);
-                        return updatedInvader;
-                    }
-                )
-            );
-            c.fillStyle = 'black';
-            c.fillRect(0, 0, canvas.width, canvas.height);
-            player.draw();
-            particles.forEach(particle => particle.draw());
-            projectiles.forEach(projectile => projectile.draw())
-            invaderProjectiles.forEach(invaderProjectile => invaderProjectile.draw())
-            invaders.forEach(invader => invader.draw()); // Draw the updated invaders
-
-
-        })
-    }
-
-
     document.addEventListener('keydown', (event) => {
-        if (event.key === ' ' && !keys.space.pressed) {
-            projectiles.push(new Projectile({
-                position: {
-                    x: player.position.x + player.width / 2,
-                    y: player.position.y
-                },
-                velocity: {
-                    x: 0,
-                    y: -45
+                if (event.key === ' ' && !keys.space.pressed) {
+                    projectiles.push(new Projectile({
+                        position: {
+                            x: player.position.x + player.width / 2,
+                            y: player.position.y
+                        },
+                        velocity: {
+                            x: 0,
+                            y: -45
+                        }
+                    }));
                 }
-            }));
-        }
-    });
-    document.addEventListener('keyup', keyHandler);
-};
+            });
+        document.addEventListener('keyup', keyHandler);
+    };
 
-game.unmount = () => {
-    console.log('unmount was called');
-    clearInterval(game.intervalId);
-    // eslint-disable-next-line no-restricted-globals
-    removeEventListener('keydown', keyHandler);
+    game.unmount = () => {
+        console.log('unmount was called');
+        clearInterval(game.intervalId);
+        // eslint-disable-next-line no-restricted-globals
+        removeEventListener('keydown', keyHandler);
 
-};
+    };
 
 
-export default game;
+    export default game;
 
             // grids.forEach(grid => {
             //     grid.invaders.forEach(invader => invader.draw());
