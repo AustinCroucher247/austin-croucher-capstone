@@ -188,8 +188,8 @@ game.mount = (canvas, score, handleScore, postScore, setShowGameOverModal, socke
         constructor({ position, velocity }) {
             this.position = position
             this.velocity = velocity
-            this.width = 4
-            this.height = 12
+            this.width = 10
+            this.height = 20
         }
         draw() {
             c.fillStyle = 'lime'
