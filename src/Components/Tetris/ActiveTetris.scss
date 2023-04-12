@@ -135,3 +135,33 @@
     width: 100%;
     justify-content: space-around;
 }
+
+.arrows-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    position: absolute;
+    top: 30%;
+    left: 8%;
+    width: 85%;
+    align-items: center;
+}
+
+.updownleftright {
+
+    top: 6rem;
+    left: 2rem;
+    width: 17%;
+
+}
+
+.modal--container3 {
+    background-color: #dadfe1;
+    height: 20rem;
+    border-radius: 10px;
+    text-align: center;
+    padding: 3rem 1rem 0rem 1rem;
+    margin: 0 auto;
+    margin-top: 10rem;
+    width: 50%;
+}

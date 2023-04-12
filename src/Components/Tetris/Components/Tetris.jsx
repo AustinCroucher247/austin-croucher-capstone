@@ -7,6 +7,7 @@ import GameController from './GameController';
 import { useBoard } from '../Hooks/useBoard';
 import { useGameStats } from '../Hooks/useGameStats';
 import { usePlayer } from '../Hooks/usePlayer';
+import { useEffect } from 'react';
 
 
 
@@ -24,6 +25,16 @@ function Tetris({ rows, columns, setGameOver }) {
         addLinesCleared
     });
 
+    function preventAllKeysScroll(e) {
+        e.preventDefault();
+    }
+
+    useEffect(() => {
+        document.addEventListener('keydown', preventAllKeysScroll);
+        return () => {
+            document.removeEventListener('keydown', preventAllKeysScroll);
+        };
+    }, []);
 
     return (
         <div className='tetris'>

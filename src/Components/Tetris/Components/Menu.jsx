@@ -1,13 +1,16 @@
 import { useState } from "react";
+import spaceKeys from '../../../assets/101-1017248_parallel-hd-png-download-removebg-preview.png'
+import arrows from '../../../assets/arrows-removebg-preview.png'
 
 function Menu({ onClick }) {
     // eslint-disable-next-line
     const [showModal, setShowModal] = useState(true);
+    const [showControls, setShowControls] = useState(true)
 
     return (
         <div className="menu">
             {showModal && (
-                <div className='modal--container'>
+                <div className='modal--container3'>
                     <div className='modal--content'>
                         <h2 className='modal--title'>Play Tetris</h2>
                         <p className='modal--description'>
@@ -20,7 +23,37 @@ function Menu({ onClick }) {
                     </div>
                 </div>
             )}
+            {showControls && (
+                <div className='modal--container2'>
+                    <div className='modal--content'>
+                        <h2 className='modal--title'>Tetris Controls</h2>
+                        <p className='modal--description'>
+                            <div className='controls-container'>
+                                <div className='arrows-flex'>
+                                    <img className='updownleftright' src={arrows} alt='WASD keys' />
+                                    <p>.................................................</p>
+                                    <div className="controls--container">
+                                        <h6>Up: Change Direction</h6>
+                                        <h6> Left: Move Left</h6>
+                                        <h6>Right: Move Right</h6>
+                                        <h6>Down: Move Piece Down</h6>
+                                    </div>
+                                </div>
+                                <div className='space-flex'>
+                                    <img className='space' src={spaceKeys} alt='Space key' />
+                                    <p>..................................................................</p>
+                                    <h5>INSTANT DROP!</h5>
+
+                                </div>
+                            </div>
+                        </p>
+                        <div className='modal--button--container'>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
+
     );
 }
 

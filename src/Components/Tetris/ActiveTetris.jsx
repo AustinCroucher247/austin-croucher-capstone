@@ -7,9 +7,11 @@ function ActiveTetris() {
     return (
         <div>
             <Header />
-            <div className="ActiveTetris-container">
-                <Game rows={20} columns={10} />
-                <TetrisLeaderboard />
+            <div className='tetris--container'>
+                <div className="ActiveTetris-container">
+                    <Game rows={20} columns={10} />
+                    <TetrisLeaderboard />
+                </div>
             </div>
         </div>
     );
