@@ -1,12 +1,19 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import spaceKeys from '../../../assets/101-1017248_parallel-hd-png-download-removebg-preview.png'
 import arrows from '../../../assets/arrows-removebg-preview.png'
+import tetrisTheme from '../../../assets/audio/Tetris.mp3'
 
 function Menu({ onClick }) {
+    const audioRef = useRef(new Audio(tetrisTheme));
+
     // eslint-disable-next-line
     const [showModal, setShowModal] = useState(true);
     // eslint-disable-next-line
     const [showControls, setShowControls] = useState(true)
+    const handleButtonClick = () => {
+        audioRef.current.play();
+        onClick();
+    };
 
     return (
         <div className="menu">
@@ -17,7 +24,7 @@ function Menu({ onClick }) {
                         <p className='modal--description'>
                             Tetris is a classic video game where players arrange falling shapes to create horizontal lines without gaps, scoring points as the difficulty increases.                        </p>
                         <div className='modal--button--container'>
-                            <button className='modal--button' onClick={onClick}>
+                            <button className='modal--button' onClick={handleButtonClick}>
                                 Start
                             </button>
                         </div>
