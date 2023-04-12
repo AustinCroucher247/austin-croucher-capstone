@@ -101,7 +101,6 @@ export const playerController = ({
     player,
     setPlayer,
     setGameOver
-
 }) => {
     if (!action) return false;
 
@@ -115,10 +114,6 @@ export const playerController = ({
         const isGameOver = player.collided && player.position.row === 0;
         if (isGameOver) {
             setGameOver(isGameOver);
-
-            // Call postScore() after the game is over
-            postScore();
-
             return true;
         }
     }
