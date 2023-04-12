@@ -4,6 +4,7 @@ import { playerController } from "../Logic/PlayerController";
 import { useInterval } from "../Hooks/useInterval";
 import { useDropTime } from "../Hooks/useDropTime";
 import axios from "axios";
+import { useEffect } from "react";
 
 const GameController = ({
     board,
@@ -41,6 +42,13 @@ const GameController = ({
             console.error(error);
         }
     };
+    useEffect(() => {
+        if (gameStats.gameOver) {
+            console.log('Game Over');
+            postScore();
+            setGameOver(false); // Reset the gameOver state
+        }
+    }, [gameStats.gameOver, postScore, setGameOver]);
 
     useInterval(() => {
         handleInput({ action: Action.SlowDrop });
@@ -71,16 +79,18 @@ const GameController = ({
     };
 
     const handleInput = ({ action }) => {
-        playerController({
+        const isGameOver = playerController({
             action,
             board,
             player,
             setPlayer,
-            setGameOver,
-            postScore
+            onGameOver: (gameOver) => {
+                setGameOver(gameOver);
+                postScore();
+            },
         });
 
-        if (action === Action.Quit || gameStats.gameOver) {
+        if (isGameOver) {
             console.log('Game Over or Player Quit');
             postScore();
         }

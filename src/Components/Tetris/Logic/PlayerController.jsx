@@ -60,7 +60,7 @@ const attemptMovement = ({
     action,
     player,
     setPlayer,
-    setGameOver
+    onGameOver
 }) => {
     const delta = { row: 0, column: 0 };
     let isFastDropping = false;
@@ -84,7 +84,7 @@ const attemptMovement = ({
 
     const isGameOver = collided && player.position.row === 0;
     if (isGameOver) {
-        setGameOver(isGameOver);
+        onGameOver(isGameOver);
     }
     setPlayer({
         ...player,
@@ -100,20 +100,19 @@ export const playerController = ({
     board,
     player,
     setPlayer,
-    setGameOver
+    onGameOver,
 }) => {
-    if (!action) return false;
+    if (!action) return;
 
     if (action === Action.Rotate) {
         attemptRotation(board, player, setPlayer);
-        return false;
     } else {
-        attemptMovement({ board, player, setPlayer, action, setGameOver });
+        attemptMovement({ board, player, setPlayer, action, onGameOver });
 
         // Check if the game is over
         const isGameOver = player.collided && player.position.row === 0;
         if (isGameOver) {
-            setGameOver(isGameOver);
+            onGameOver(isGameOver);
             return true;
         }
     }

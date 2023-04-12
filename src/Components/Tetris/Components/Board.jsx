@@ -2,7 +2,6 @@ import '.././ActiveTetris.scss'
 import BoardCell from './BoardCell.jsx'
 
 function Board({ board }) {
-    console.log("board", board)
 
     const boardStyles = {
         gridTemplateRows: `repeat(${board.size.rows}, 1fr)`,
