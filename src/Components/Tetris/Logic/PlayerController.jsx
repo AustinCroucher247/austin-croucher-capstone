@@ -102,10 +102,21 @@ export const playerController = ({
     setPlayer,
     setGameOver
 }) => {
-    if (!action) return;
+    if (!action) return false;
+
     if (action === Action.Rotate) {
-        attemptRotation(board, player, setPlayer)
+        attemptRotation(board, player, setPlayer);
+        return false;
     } else {
-        attemptMovement({ board, player, setPlayer, action, setGameOver })
+        attemptMovement({ board, player, setPlayer, action, setGameOver });
+
+        // Check if the game is over
+        const isGameOver = player.collided && player.position.row === 0;
+        if (isGameOver) {
+            setGameOver(isGameOver);
+            return true;
+        }
     }
+
+    return false;
 };

@@ -3,6 +3,7 @@ import { Action, actionForKey, actionIsDrop } from "../Logic/Input";
 import { playerController } from '../Logic/PlayerController';
 import { useInterval } from '../Hooks/useInterval'
 import { useDropTime } from '../Hooks/useDropTime'
+import axios from 'axios';
 
 const GameController = ({
     board,
@@ -17,7 +18,24 @@ const GameController = ({
         gameStats
     });
 
+    const postScore = async () => {
+        const username = localStorage.getItem('username') || 'Guest';
+        const randomSuffix = Math.floor(Math.random() * 10000);
+        const uniqueUsername = username === 'Guest' ? 'Guest' + randomSuffix.toString() : username;
+        const data = { username: uniqueUsername, score: gameStats.points };
 
+        try {
+            const response = await axios.post('https://austin-croucher-retro-rumble.herokuapp.com/tetris', data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
     useInterval(() => {
         handleInput({ action: Action.SlowDrop })
     }, dropTime)
@@ -55,6 +73,10 @@ const GameController = ({
             setPlayer,
             setGameOver
         });
+
+        if (action === Action.Quit || gameStats.gameOver) {
+            postScore();
+        }
     };
 
     return (
