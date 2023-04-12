@@ -1,6 +1,7 @@
 import Header from '../Header/Header';
 import './UserPage.scss';
 import { useState, useEffect } from 'react';
+import TetrisLeaderboard from '../Tetris/Components/TetrisLeaderboard'
 import axios from 'axios';
 
 function UserPage() {
@@ -71,6 +72,8 @@ function UserPage() {
                         <div className='leaderboard--container1'>
 
                             <h1 className='leaderboard--text'>Leaderboard</h1>
+                            <h1 className='leaderboard--text'>Space Invaders</h1>
+
                             {leaderboardData ? (
                                 <table className='leaderboard'>
                                     <thead>
@@ -96,6 +99,7 @@ function UserPage() {
                             <button className='logout--button' onClick={handleLogout}>Logout</button>
 
                         </div>
+                        <TetrisLeaderboard />
                     </div>
                 </div>
             </div>

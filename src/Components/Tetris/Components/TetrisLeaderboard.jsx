@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Leaderboard = () => {
+const TetrisLeaderboard = () => {
     const [leaderboard, setLeaderboard] = useState([]);
+    const username = localStorage.getItem('username');
 
     useEffect(() => {
         fetchLeaderboard();
@@ -18,9 +19,11 @@ const Leaderboard = () => {
     };
 
     return (
-        <div className="leaderboard--container">
-            <h2 lassName='leaderboard--text'>Leaderboard</h2>
-            <table className='leaderboard'>
+        <div>
+            <h2 className='leaderboard--text--tetris'>Leaderboard</h2>
+            <h2 className='leaderboard--text--tetris'>Tetris</h2>
+
+            <table className='leaderboard' id='leaderboard'>
                 <thead>
                     <tr>
                         <th>Rank</th>
@@ -30,7 +33,7 @@ const Leaderboard = () => {
                 </thead>
                 <tbody>
                     {leaderboard.map((entry, index) => (
-                        <tr key={index}>
+                        <tr key={index} style={entry.username === username ? { fontWeight: 'bold' } : {}}>
                             <td>{index + 1}</td>
                             <td>{entry.username}</td>
                             <td>{entry.score}</td>
@@ -42,4 +45,4 @@ const Leaderboard = () => {
     );
 };
 
-export default Leaderboard;
+export default TetrisLeaderboard;
