@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 const buildGameStats = () => ({
 
@@ -10,10 +10,28 @@ const buildGameStats = () => ({
 
 export const useGameStats = () => {
     const [gameStats, setGameStats] = useState(buildGameStats());
+    const [showTetrisMessage, setShowTetrisMessage] = useState(false);
 
     const addLinesCleared = useCallback((lines) => {
         setGameStats((previous) => {
-            const points = previous.points + lines * 100
+            let pointsEarned;
+            switch (lines) {
+                case 1:
+                    pointsEarned = 40;
+                    break;
+                case 2:
+                    pointsEarned = 100;
+                    break;
+                case 3:
+                    pointsEarned = 300;
+                    break;
+                case 4:
+                    pointsEarned = 1200;
+                    break;
+                default:
+                    pointsEarned = 0;
+            }
+            const points = previous.points + pointsEarned;
             const { linesPerLevel } = previous;
             const newLinesCompleted = previous.linesCompleted + lines;
             const level =
@@ -27,8 +45,20 @@ export const useGameStats = () => {
                 linesPerLevel,
                 points
             }
-        }, [])
+        });
+        if (lines === 4) {
+            setShowTetrisMessage(true);
+        }
     }, []);
 
-    return [gameStats, addLinesCleared];
+    useEffect(() => {
+        if (showTetrisMessage) {
+            const timeout = setTimeout(() => {
+                setShowTetrisMessage(false);
+            }, 3000); // 3 seconds
+            return () => clearTimeout(timeout);
+        }
+    }, [showTetrisMessage]);
+
+    return [gameStats, addLinesCleared, showTetrisMessage];
 }
