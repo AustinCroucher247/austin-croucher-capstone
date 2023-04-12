@@ -9,7 +9,7 @@ import Leaderboards from './Components/Leaderboards/Leaderboards';
 import AboutUs from './Components/AboutUs/AboutUs';
 import Login from './Components/Login/Login';
 import SpaceGamePage from './Components/SpaceInvaders/SpaceGamePage';
-import ActivePacMan from './Components/ActivePacMan/ActivePacMan'
+import ActivePacMan from './Components/Tetris/ActivePacMan'
 import ActiveSpaceInvaders from './Components/ActiveSpaceInvaders/ActiveSpaceInvaders'
 import UserPage from './Components/UserPage/UserPage';
 import ChatRoom from './Components/SpaceInvaders/ChatRoom';

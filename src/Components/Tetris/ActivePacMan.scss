@@ -1,0 +1,119 @@
+.tetris {
+    position: relative;
+}
+
+.Boardcell {
+    width: auto;
+    border-radius: 6px;
+    position: relative;
+}
+
+.tetromino {
+    border-top: 3px solid rgba(255, 255, 255, 0.1);
+    border-left: 3px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.1);
+    border-right: 3px solid rgba(0, 0, 0, 0.1);
+}
+
+.sparkle {
+    position: absolute;
+    z-index: 10;
+    width: 6px;
+    height: 6px;
+    left: -2px;
+    top: -2px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 4px 4px;
+}
+
+.tetromino.ghost .sparkle {
+    opacity: 0;
+}
+
+.tetromino__i {
+    background-color: rgba(80, 227, 230, 1);
+}
+
+.tetromino__j {
+    background-color: rgba(69, 95, 223, 1);
+}
+
+.tetromino__l {
+    background-color: rgba(223, 173, 36, 1);
+}
+
+.tetromino__o {
+    background-color: rgba(223, 217, 36, 1);
+}
+
+.tetromino__s {
+    background-color: rgba(48, 211, 56, 1);
+}
+
+.tetromino__t {
+    background-color: rgba(132, 61, 198, 1)
+}
+
+.tetromino__z {
+    background-color: rgba(240, 80, 195, 1);
+}
+
+.board {
+    margin: 2em auto;
+    display: grid;
+    grid-gap: 2px;
+    width: 20vw;
+    height: 40vw;
+    background: rgb(32, 0, 64);
+    border: 10px solid rgb(32, 0, 64);
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+
+.GameStats {
+    position: absolute;
+    width: 22vw;
+    list-style-type: none;
+    color: rgba(255, 255, 255, 0);
+}
+
+.GameStats--left {
+    right: 0;
+    top: 22vh;
+    text-align: left;
+
+}
+
+.GameStats--right {
+    right: 0;
+    bottom: 0;
+    text-align: left;
+    color: white;
+
+}
+
+.GameStats .value {
+    font-size: 2.8rem;
+    margin-bottom: 0.5em;
+    color: white;
+}
+
+.preview {
+    position: absolute;
+    top: 0;
+    left: 72.2vw;
+    background: rgba(0, 0, 0, 0.1);
+    border: 10px solid rgba(0, 0, 0, 0);
+    border-radius: 10px;
+
+    &--board {
+        display: grid;
+        grid-gap: 2px;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        width: 11vw;
+        height: 11vw;
+    }
+
+}
