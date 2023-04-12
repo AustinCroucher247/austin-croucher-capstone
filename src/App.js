@@ -9,7 +9,7 @@ import Leaderboards from './Components/Leaderboards/Leaderboards';
 import AboutUs from './Components/AboutUs/AboutUs';
 import Login from './Components/Login/Login';
 import SpaceGamePage from './Components/SpaceInvaders/SpaceGamePage';
-import ActivePacMan from './Components/Tetris/ActivePacMan'
+import ActiveTetris from './Components/Tetris/ActiveTetris';
 import ActiveSpaceInvaders from './Components/ActiveSpaceInvaders/ActiveSpaceInvaders'
 import UserPage from './Components/UserPage/UserPage';
 import ChatRoom from './Components/SpaceInvaders/ChatRoom';
@@ -73,7 +73,7 @@ function App() {
         <Route path='/AboutUs' element={<AboutUs />} />
         <Route path='/Login' element={<Login />} />
         <Route path='/SpaceInvaders' element={<SpaceGamePage socketRef={socketRef} />} />
-        <Route path='/ActiveStreams/Pacman' element={<ActivePacMan />} />
+        <Route path='/Tetris' element={<ActiveTetris />} />
         <Route path='/ActiveStreams/SpaceInvaders' element={<ActiveSpaceInvaders rooms={rooms} handleJoinRoom={handleJoinRoom} handleCloseRoom={handleCloseRoom} />} />
         <Route path='/ChatRoom/:roomId' element={<ChatRoom />} />
         <Route path="/UserPage" element={<UserPage />} />

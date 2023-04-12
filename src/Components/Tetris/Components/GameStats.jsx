@@ -1,4 +1,4 @@
-import '.././ActivePacMan.scss'
+import '.././ActiveTetris.scss'
 import React from 'react';
 
 const GameStats = ({ gameStats }) => {

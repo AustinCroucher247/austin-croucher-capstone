@@ -1,6 +1,6 @@
 import React from "react";
 import Preview from "./Preview";
-import '.././ActivePacMan.scss'
+import '.././ActiveTetris.scss'
 
 
 const Previews = ({ tetriminoes }) => {

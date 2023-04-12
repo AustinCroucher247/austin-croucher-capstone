@@ -1,9 +1,9 @@
-import './ActivePacMan.scss'
+import '../Tetris/ActiveTetris.scss'
 import Header from '../Header/Header';
 import Game from './Components/Game.jsx'
 
 
-function ActivePacMan() {
+function ActiveTetris() {
     return (
         <div>
             <Header />
@@ -12,7 +12,7 @@ function ActivePacMan() {
     );
 }
 
-export default ActivePacMan;
+export default ActiveTetris;
 
 
 

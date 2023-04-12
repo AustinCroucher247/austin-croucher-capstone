@@ -2,9 +2,9 @@ import './HomePage.scss'
 import Header from '../Header/Header';
 import SpaceInvaders from '../../assets/spaceinvaders.jpg'
 import { Link } from 'react-router-dom';
-import PacMan from '../../assets/PacMan.png'
 import { useState } from 'react';
 import Video from '../../assets/SpaceGame.mp4'
+import TetrisImg from '../../assets/tetris.jpg'
 
 
 function HomePage() {
@@ -60,10 +60,10 @@ function HomePage() {
                 )}
                 {currentGame === 'Pac-man' && (
                     <div className="card2">
-                        <img className="card-img2" src={PacMan} alt="Thumbnail" />
+                        <img className="card-img2" src={TetrisImg} alt="Thumbnail" />
                         <div className="card-body">
-                            <h2 className="card-title">Pac-man</h2>
-                            <h1 className='pac-text'>COMING SOON!!</h1>
+                            <h2 className="card-title">Tetris</h2>
+                            <Link to={'/Tetris'}><button className="card-button-play">Play Now</button></Link>
 
                             <div className='button--container2'>
                             </div>

@@ -1,4 +1,4 @@
-import '.././ActivePacMan.scss'
+import '.././ActiveTetris.scss'
 import Previews from './Previews';
 import GameStats from './GameStats';
 import Board from "./Board";
@@ -15,6 +15,7 @@ import { usePlayer } from '../Hooks/usePlayer';
 function Tetris({ rows, columns, setGameOver }) {
     const [gameStats, addLinesCleared] = useGameStats();
     const [player, setPlayer, resetPlayer] = usePlayer();
+    // eslint-disable-next-line
     const [board, setBoard] = useBoard({
         rows,
         columns,

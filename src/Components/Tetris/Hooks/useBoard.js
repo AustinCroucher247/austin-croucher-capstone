@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { buildBoard, nextBoard } from "../Logic/Board";
 
 export const useBoard = ({ rows, columns, player, resetPlayer, addLinesCleared }) => {

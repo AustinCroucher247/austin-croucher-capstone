@@ -1,4 +1,4 @@
-import '.././ActivePacMan.scss'
+import '.././ActiveTetris.scss'
 
 const BoardCell = ({ cell }) => (
     <div className={`BoardCell ${cell.className}`}>

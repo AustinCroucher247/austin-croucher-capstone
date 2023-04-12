@@ -1,5 +1,5 @@
 import React from "react";
-import '.././ActivePacMan.scss'
+import '.././ActiveTetris.scss'
 
 import { buildBoard } from "../Logic/Board";
 import { transferToBoard } from "../Logic/Tetriminoes.jsx";

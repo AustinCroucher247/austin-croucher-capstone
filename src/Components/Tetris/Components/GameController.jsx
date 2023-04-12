@@ -1,4 +1,4 @@
-import '.././ActivePacMan.scss'
+import '.././ActiveTetris.scss'
 import { Action, actionForKey, actionIsDrop } from "../Logic/Input";
 import { playerController } from '../Logic/PlayerController';
 import { useInterval } from '../Hooks/useInterval'

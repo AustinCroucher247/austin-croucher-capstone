@@ -1,6 +1,4 @@
-import { Repeat } from 'immutable';
-import '.././ActivePacMan.scss'
-import { useBoard } from "../Hooks/useGameOver.js"
+import '.././ActiveTetris.scss'
 import BoardCell from './BoardCell.jsx'
 
 function Board({ board }) {
