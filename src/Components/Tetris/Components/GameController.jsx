@@ -65,7 +65,7 @@ const GameController = ({
         }
     };
 
-    const handleInput = ({ action }) => {
+    const handleInput = ({ action, setGameOver }) => {
         playerController({
             action,
             board,

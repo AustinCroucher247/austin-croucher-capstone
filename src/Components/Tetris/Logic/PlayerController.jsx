@@ -23,7 +23,7 @@ const attemptRotation = (board, player, setPlayer) => {
             }
         });
     } else {
-        return false
+        return false;
     }
 }
 
@@ -60,7 +60,8 @@ const attemptMovement = ({
     action,
     player,
     setPlayer,
-    setGameOver
+    setGameOver,
+    postScore
 }) => {
     const delta = { row: 0, column: 0 };
     let isFastDropping = false;
@@ -110,7 +111,7 @@ export const playerController = ({
         attemptRotation(board, player, setPlayer);
         return false;
     } else {
-        attemptMovement({ board, player, setPlayer, action, setGameOver });
+        attemptMovement({ board, player, setPlayer, action, setGameOver, postScore });
 
         // Check if the game is over
         const isGameOver = player.collided && player.position.row === 0;
