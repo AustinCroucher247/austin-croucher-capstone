@@ -70,12 +70,15 @@ const GameController = ({
             player,
             setPlayer,
             setGameOver,
-            postScore
+            postScore,
         });
 
-        if (action === Action.Quit || gameStats.gameOver) {
-            console.log('Game Over or Player Quit');
-            postScore();
+        if (gameStats.gameOver) {
+            console.log("Game Over");
+            setGameOver(true);
+        } else if (action === Action.Quit) {
+            console.log("Player Quit");
+            setGameOver(true);
         }
     };
 
