@@ -18,9 +18,9 @@ const Leaderboard = () => {
     };
 
     return (
-        <div className="Leaderboard">
-            <h2>Leaderboard</h2>
-            <table>
+        <div className="leaderboard--container">
+            <h2 lassName='leaderboard--text'>Leaderboard</h2>
+            <table className='leaderboard'>
                 <thead>
                     <tr>
                         <th>Rank</th>
