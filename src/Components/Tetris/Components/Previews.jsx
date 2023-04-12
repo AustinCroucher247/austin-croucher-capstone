@@ -4,7 +4,7 @@ import '.././ActivePacMan.scss'
 
 
 const Previews = ({ tetriminoes }) => {
-    const previewTetrominoes = tetriminoes
+    const previewTetriminoes = tetriminoes
         .slice(1 - tetriminoes.length)
         .reverse();
 
@@ -12,7 +12,7 @@ const Previews = ({ tetriminoes }) => {
     return (
 
         <>
-            {previewTetrominoes.map((tetrimino, index) => (
+            {previewTetriminoes.map((tetrimino, index) => (
                 <Preview tetrimino={tetrimino} index={index} key={index} />
             ))}
         </>

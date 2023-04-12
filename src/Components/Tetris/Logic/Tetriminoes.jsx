@@ -1,6 +1,6 @@
-const className = "tetromino";
+const className = "tetrimino";
 
-export const TETROMINOES = {
+export const TETRIMINOES = {
 
     I: {
         shape: [
@@ -9,7 +9,7 @@ export const TETROMINOES = {
             [0, 1, 0, 0],
             [0, 1, 0, 0]
         ],
-        className: `${className} ${className}__i`
+        className: `${className} ${className}__i `
     },
     J: {
         shape: [
@@ -63,10 +63,10 @@ export const TETROMINOES = {
 
 
 export const randomTetrimino = () => {
-    const keys = Object.keys(TETROMINOES);
+    const keys = Object.keys(TETRIMINOES);
     const index = Math.floor(Math.random() * keys.length);
     const key = keys[index];
-    return TETROMINOES[key]
+    return TETRIMINOES[key]
 }
 
 export const transferToBoard = ({
