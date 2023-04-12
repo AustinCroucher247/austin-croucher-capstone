@@ -16,7 +16,7 @@ const GameController = ({
     const [dropTime, pauseDropTime, resumeDropTime] = useDropTime({
         gameStats,
     });
-
+    // eslint-disable-next-line
     const postScore = async () => {
         const username = localStorage.getItem("username") || "Guest";
         const randomSuffix = Math.floor(Math.random() * 10000);
