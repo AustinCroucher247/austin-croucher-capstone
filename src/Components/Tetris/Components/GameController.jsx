@@ -36,7 +36,9 @@ const GameController = ({
     };
 
     useInterval(() => {
-        handleInput({ action: Action.SlowDrop });
+        if (!gameStats.gameOver) {
+            handleInput({ action: Action.SlowDrop });
+        }
     }, dropTime);
 
     const onKeyUp = ({ code }) => {
