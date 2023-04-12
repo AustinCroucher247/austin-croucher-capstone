@@ -17,24 +17,17 @@ const GameController = ({
     });
 
     const postScore = async () => {
-        const username = localStorage.getItem("username") || "Guest";
+        const username = localStorage.getItem('username') || 'Guest';
         const randomSuffix = Math.floor(Math.random() * 10000);
-        const uniqueUsername =
-            username === "Guest"
-                ? "Guest" + randomSuffix.toString()
-                : username;
+        const uniqueUsername = username === 'Guest' ? 'Guest' + randomSuffix.toString() : username;
         const data = { username: uniqueUsername, score: gameStats.points };
 
         try {
-            const response = await axios.post(
-                "https://austin-croucher-retro-rumble.herokuapp.com/tetris/leaderboard",
-                data,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await axios.post('https://austin-croucher-retro-rumble.herokuapp.com/tetris/leaderboard', data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
             console.log(response.data);
         } catch (error) {
@@ -77,10 +70,11 @@ const GameController = ({
             player,
             setPlayer,
             setGameOver,
-            postScore,
+            postScore
         });
 
         if (action === Action.Quit || gameStats.gameOver) {
+            console.log('Game Over or Player Quit');
             postScore();
         }
     };
