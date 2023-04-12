@@ -1,8 +1,8 @@
 import Header from '../Header/Header';
 import './GameRoom.scss'
 import { Link } from 'react-router-dom';
-import PacMan from '../../assets/PacMan.png'
-
+import Tetris from '../../assets/tetris.jpg';
+import SpaceInvaders from '../../assets/spaceinvaders.jpg'
 
 
 function GameRoom() {
@@ -13,14 +13,24 @@ function GameRoom() {
                 <div className='sidebar'>
                     <h1 className='sidebar--text'>Featured Game</h1>
                     <div className="card">
-                        <img className="card-img" src={PacMan} alt="Thumbnail" />
+                        <img className="card-img" src={Tetris} alt="Thumbnail" />
                         <div className="card-body">
-                            <h2 className="card-title">Pac-Man</h2>
-                            <p className="card-text">Pac-Man is a classic arcade game that features a yellow character eating dots while avoiding ghosts in a never-ending maze.</p>
+                            <h2 className="card-title">Tetris</h2>
+                            <p className="card-text"> Tetris is a classic video game where players arrange falling shapes to create horizontal lines without gaps, scoring points as the difficulty increases. </p>
+
                             <div className='button--container'>
-                                <Link to={'/SpaceInvaders'}> <button className="card-button-play">Play Now</button></Link>
-                                <Link to={'/ActiveStreams'}> <button className="card-button">Watch Now</button></Link>
+                                <Link to={'/Tetris'}> <button className="card-button-play">Play Now</button></Link>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div className='activecard--container1'>
+                    <div className="active--card2">
+                        <img className="activecard-img2" src={SpaceInvaders} alt="Thumbnail" />
+                        <div className="activecard-body">
+                            <h2 className="activecard-title">Space Invaders</h2>
+                            <Link to={'/SpaceInvaders'}> <button className="card-button-play">Play Now</button></Link>
+
                         </div>
                     </div>
                 </div>

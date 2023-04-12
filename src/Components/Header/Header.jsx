@@ -40,11 +40,11 @@ function Header({ forceNavigate }) {
                                         Home
                                     </li>
                                 </Link>
-                                {/* <Link to={'/GameRoom'} style={{ textDecoration: 'none' }}>
+                                <Link to={'/GameRoom'} style={{ textDecoration: 'none' }}>
                                     <li className='list--item'>
                                         Game Room
                                     </li>
-                                </Link> */}
+                                </Link>
                                 <Link to={'/ActiveStreams'} style={{ textDecoration: 'none' }}>
                                     <li className='list--item'>
                                         Active Streams
