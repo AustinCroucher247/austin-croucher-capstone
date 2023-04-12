@@ -26,6 +26,11 @@
     border-radius: 4px 4px;
 }
 
+.tetrimino.ghost {
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
 .tetrimino.ghost .sparkle {
     opacity: 0;
 }
