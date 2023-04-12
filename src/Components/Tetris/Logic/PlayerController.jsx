@@ -23,7 +23,7 @@ const attemptRotation = (board, player, setPlayer) => {
             }
         });
     } else {
-        return false;
+        return false
     }
 }
 
@@ -60,8 +60,7 @@ const attemptMovement = ({
     action,
     player,
     setPlayer,
-    setGameOver,
-    postScore
+    setGameOver
 }) => {
     const delta = { row: 0, column: 0 };
     let isFastDropping = false;
@@ -101,29 +100,12 @@ export const playerController = ({
     board,
     player,
     setPlayer,
-    setGameOver,
-    postScore // Add postScore to the function signature
-
+    setGameOver
 }) => {
-    if (!action) return false;
-
+    if (!action) return;
     if (action === Action.Rotate) {
-        attemptRotation(board, player, setPlayer);
-        return false;
+        attemptRotation(board, player, setPlayer)
     } else {
-        attemptMovement({ board, player, setPlayer, action, setGameOver, postScore });
-
-        // Check if the game is over
-        const isGameOver = player.collided && player.position.row === 0;
-        if (isGameOver) {
-            setGameOver(isGameOver);
-
-            // Call postScore() after the game is over
-            postScore();
-
-            return true;
-        }
+        attemptMovement({ board, player, setPlayer, action, setGameOver })
     }
-
-    return false;
 };
