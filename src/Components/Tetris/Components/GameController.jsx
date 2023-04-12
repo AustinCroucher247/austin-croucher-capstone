@@ -25,7 +25,7 @@ const GameController = ({
         const data = { username: uniqueUsername, score: gameStats.points };
 
         try {
-            const response = await axios.post('https://austin-croucher-retro-rumble.herokuapp.com/tetris', data, {
+            const response = await axios.post('https://austin-croucher-retro-rumble.herokuapp.com/tetris/leaderboard', data, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -71,7 +71,8 @@ const GameController = ({
             board,
             player,
             setPlayer,
-            setGameOver
+            setGameOver,
+            postScore
         });
 
         if (action === Action.Quit || gameStats.gameOver) {

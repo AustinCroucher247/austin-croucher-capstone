@@ -100,7 +100,9 @@ export const playerController = ({
     board,
     player,
     setPlayer,
-    setGameOver
+    setGameOver,
+    postScore // Add postScore to the function signature
+
 }) => {
     if (!action) return false;
 
@@ -114,6 +116,10 @@ export const playerController = ({
         const isGameOver = player.collided && player.position.row === 0;
         if (isGameOver) {
             setGameOver(isGameOver);
+
+            // Call postScore() after the game is over
+            postScore();
+
             return true;
         }
     }
