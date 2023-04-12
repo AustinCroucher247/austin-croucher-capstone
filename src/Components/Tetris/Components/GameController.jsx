@@ -66,19 +66,30 @@ const GameController = ({
     };
 
     const handleInput = ({ action }) => {
-        playerController({
-            action,
-            board,
-            player,
-            setPlayer,
-            setGameOver,
-            postScore
-        });
+        if (!action) return false;
 
-        if (action === Action.Quit || gameStats.gameOver) {
+        if (action === Action.Rotate) {
+            attemptRotation(board, player, setPlayer);
+            return false;
+        } else {
+            attemptMovement({ board, player, setPlayer, action, setGameOver });
+
+            // Check if the game is over
+            const isGameOver = player.collided && player.position.row === 0;
+            if (isGameOver) {
+                setGameOver(isGameOver);
+                return true;
+            }
+        }
+
+        return false;
+    };
+
+    useEffect(() => {
+        if (gameStats.gameOver) {
             postScore();
         }
-    };
+    }, [gameStats.gameOver]);
 
     return (
         <input
