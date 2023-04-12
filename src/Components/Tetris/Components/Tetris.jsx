@@ -2,6 +2,7 @@ import '.././ActivePacMan.scss'
 import Previews from './Previews';
 import GameStats from './GameStats';
 import Board from "./Board";
+import GameController from './GameController';
 
 import { useBoard } from '../Hooks/useBoard';
 import { useGameStats } from '../Hooks/useGameStats';
@@ -28,6 +29,13 @@ function Tetris({ rows, columns, setGameOver }) {
             <Board board={board} />
             <GameStats gameStats={gameStats} />
             <Previews tetriminoes={player.tetriminoes} />
+            <GameController
+                board={board}
+                gameStats={gameStats}
+                player={player}
+                setGameOver={setGameOver}
+                setPlayer={setPlayer}
+            />
         </div>
 
     );
