@@ -5,6 +5,7 @@ import arrows from '../../../assets/arrows-removebg-preview.png'
 function Menu({ onClick }) {
     // eslint-disable-next-line
     const [showModal, setShowModal] = useState(true);
+    // eslint-disable-next-line
     const [showControls, setShowControls] = useState(true)
 
     return (
