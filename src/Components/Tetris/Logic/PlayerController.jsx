@@ -3,6 +3,7 @@ import { hasCollision, isWithinBoard } from "./Board"
 import { rotate } from "./Tetriminoes";
 
 
+
 const attemptRotation = (board, player, setPlayer) => {
     const shape = rotate({
         piece: player.tetrimino.shape,
@@ -60,7 +61,9 @@ const attemptMovement = ({
     action,
     player,
     setPlayer,
-    onGameOver
+    onBlockPlaced,
+    onGameOver,
+    onBrickPlaced // Add the onBrickPlaced parameter
 }) => {
     const delta = { row: 0, column: 0 };
     let isFastDropping = false;
@@ -85,7 +88,10 @@ const attemptMovement = ({
     const isGameOver = collided && player.position.row === 0;
     if (isGameOver) {
         onGameOver(isGameOver);
+    } else if (collided && onBrickPlaced) { // Add this condition to call onBrickPlaced when the brick has collided
+        onBrickPlaced();
     }
+
     setPlayer({
         ...player,
         collided,
@@ -95,12 +101,14 @@ const attemptMovement = ({
 };
 
 
+
 export const playerController = ({
     action,
     board,
     player,
     setPlayer,
     onGameOver,
+    onBlockPlaced
 }) => {
     if (!action) return;
 

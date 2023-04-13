@@ -1,4 +1,8 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
+import lineClearMusic from '../../../assets/audio/clear.wav'
+// import brickDropMusic from '../../../assets/audio/se_game_landing.wav'
+import tetrisMusic from '../../../assets/audio/se_game_tetris.wav'
+
 
 const buildGameStats = () => ({
 
@@ -11,8 +15,14 @@ const buildGameStats = () => ({
 export const useGameStats = () => {
     const [gameStats, setGameStats] = useState(buildGameStats());
     const [showTetrisMessage, setShowTetrisMessage] = useState(false);
+    const lineClearedAudioRef = useRef(new Audio(lineClearMusic));
+    const tetrisAudioRef = useRef(new Audio(tetrisMusic));
+
 
     const addLinesCleared = useCallback((lines) => {
+        if (lines > 0) {
+            lineClearedAudioRef.current.play();
+        }
         setGameStats((previous) => {
             let pointsEarned;
             switch (lines) {
@@ -53,6 +63,9 @@ export const useGameStats = () => {
 
     useEffect(() => {
         if (showTetrisMessage) {
+            tetrisAudioRef.current.play();
+        }
+        if (showTetrisMessage) {
             const timeout = setTimeout(() => {
                 setShowTetrisMessage(false);
             }, 3000); // 3 seconds
@@ -60,5 +73,5 @@ export const useGameStats = () => {
         }
     }, [showTetrisMessage]);
 
-    return [gameStats, addLinesCleared, showTetrisMessage];
+    return [gameStats, addLinesCleared, showTetrisMessage, tetrisAudioRef];
 }

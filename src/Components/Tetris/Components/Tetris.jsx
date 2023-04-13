@@ -13,9 +13,11 @@ import { useEffect } from 'react';
 
 
 
+
 function Tetris({ rows, columns, setGameOver }) {
     const [gameStats, addLinesCleared] = useGameStats();
     const [player, setPlayer, resetPlayer] = usePlayer();
+
     // eslint-disable-next-line
     const [board, setBoard] = useBoard({
         rows,

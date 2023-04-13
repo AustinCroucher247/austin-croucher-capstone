@@ -4,7 +4,9 @@ import { playerController } from "../Logic/PlayerController";
 import { useInterval } from "../Hooks/useInterval";
 import { useDropTime } from "../Hooks/useDropTime";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import brickDropMusic from '../../../assets/audio/se_game_landing.wav'
+
 
 const GameController = ({
     board,
@@ -77,8 +79,10 @@ const GameController = ({
             handleInput({ action });
         }
     };
+    const blockPlacedAudioRef = useRef(new Audio(brickDropMusic));
 
     const handleInput = ({ action }) => {
+
         const isGameOver = playerController({
             action,
             board,
@@ -88,7 +92,11 @@ const GameController = ({
                 setGameOver(gameOver);
                 postScore();
             },
+            onBlockPlaced: () => {
+                blockPlacedAudioRef.current.play();
+            },
         });
+
 
         if (isGameOver) {
             console.log('Game Over or Player Quit');
