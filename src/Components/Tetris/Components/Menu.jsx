@@ -18,6 +18,13 @@ function Menu({ onClick }) {
     const handleButtonClick = () => {
         audioRef.current.play();
         onClick();
+
+        // Add this code to scroll down by 5rem (assuming 1rem = 16px)
+        const scrollAmount = 5 * 16;
+        window.scrollTo({
+            top: window.scrollY + scrollAmount,
+            behavior: 'smooth'
+        });
     };
 
     return (
