@@ -34,6 +34,7 @@ function GameRoom() {
                         </div>
                     </div>
                 </div>
+
             </div>
 
         </div>
