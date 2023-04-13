@@ -7,11 +7,12 @@ import Video from '../../assets/SpaceGame.mp4'
 import TetrisImg from '../../assets/tetris.jpg'
 
 
+
 function HomePage() {
-    const [currentGame, setCurrentGame] = useState('Space Invaders');
+    const [currentGame, setCurrentGame] = useState('Tetris');
 
     function handleButtonClick() {
-        setCurrentGame(currentGame === 'Space Invaders' ? 'Pac-man' : 'Space Invaders');
+        setCurrentGame(currentGame === 'Tetris' ? 'Space Invaders' : 'Tetris');
     } return (
         <>
             <Header />
@@ -46,6 +47,17 @@ function HomePage() {
 
             <div className='sidebar2'>
                 <h1 className='sidebar2--text'>Games List</h1>
+                {currentGame === 'Tetris' && (
+                    <div className="card2">
+                        <img className="card-img2" src={TetrisImg} alt="Thumbnail" />
+                        <div className="card-body">
+                            <h2 className="card-title">Tetris</h2>
+                            <div className='button--container2'>
+                                <Link to={'/Tetris'}><button className="card-button-play">Play Now</button></Link>
+                            </div>
+                        </div>
+                    </div>
+                )}
                 {currentGame === 'Space Invaders' && (
                     <div className="card2">
                         <img className="card-img2" src={SpaceInvaders} alt="Thumbnail" />
@@ -54,18 +66,6 @@ function HomePage() {
                             <div className='button--container2'>
                                 <Link to={'/SpaceInvaders'}><button className="card-button-play">Play Now</button></Link>
                                 <Link to={'/ActiveStreams'}><button className="card-button">Watch Now</button></Link>
-                            </div>
-                        </div>
-                    </div>
-                )}
-                {currentGame === 'Pac-man' && (
-                    <div className="card2">
-                        <img className="card-img2" src={TetrisImg} alt="Thumbnail" />
-                        <div className="card-body">
-                            <h2 className="card-title">Tetris</h2>
-                            <Link to={'/Tetris'}><button className="card-button-play">Play Now</button></Link>
-
-                            <div className='button--container2'>
                             </div>
                         </div>
                     </div>

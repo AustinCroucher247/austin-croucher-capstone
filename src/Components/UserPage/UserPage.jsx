@@ -84,7 +84,7 @@ function UserPage() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {leaderboardData.slice(0, 7).map((entry, index) => (
+                                        {leaderboardData.slice(0, 45).map((entry, index) => (
                                             <tr key={entry.id} style={entry.username === username ? { fontWeight: 'bold' } : {}}>
                                                 <td>{index + 1}</td>
                                                 <td>{entry.username}</td>
