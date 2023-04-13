@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from "react"
 
 const deafultDropTime = 800;
 const minimumDropTime = 100;
-const speedIncrement = 150;
+const speedIncrement = 200;
 
 
 
