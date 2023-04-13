@@ -1,10 +1,15 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import spaceKeys from '../../../assets/101-1017248_parallel-hd-png-download-removebg-preview.png'
 import arrows from '../../../assets/arrows-removebg-preview.png'
 import tetrisTheme from '../../../assets/audio/Tetris.mp3'
 
 function Menu({ onClick }) {
     const audioRef = useRef(new Audio(tetrisTheme));
+
+    // Add this useEffect hook to set the loop property to true
+    useEffect(() => {
+        audioRef.current.loop = true;
+    }, []);
 
     // eslint-disable-next-line
     const [showModal, setShowModal] = useState(true);
