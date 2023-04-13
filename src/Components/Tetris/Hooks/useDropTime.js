@@ -1,8 +1,8 @@
 import { useState, useCallback, useEffect } from "react"
 
-const deafultDropTime = 1000;
+const deafultDropTime = 900;
 const minimumDropTime = 100;
-const speedIncrement = 50;
+const speedIncrement = 150;
 
 
 
